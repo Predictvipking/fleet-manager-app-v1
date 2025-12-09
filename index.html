@@ -8,63 +8,100 @@
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/js/all.min.js"></script>
     <style>
-        /* --- THEME (Lute Light) --- */
+        /* --- THEME ENGINE --- */
         :root {
             --bg-body: #f3f6fc;
             --bg-card: #ffffff;
-            --primary: #4f46e5; 
+            --bg-nav: rgba(255, 255, 255, 0.95);
+            --primary: #4f46e5;
+            --primary-light: #e0e7ff;
             --text-main: #1e293b;
             --text-muted: #64748b;
             --border: #e2e8f0;
+            --shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.05);
+        }
+
+        .dark-mode {
+            --bg-body: #0f172a;
+            --bg-card: #1e293b;
+            --bg-nav: rgba(15, 23, 42, 0.95);
+            --primary: #f59e0b;
+            --primary-light: rgba(245, 158, 11, 0.1);
+            --text-main: #f8fafc;
+            --text-muted: #94a3b8;
+            --border: #334155;
+            --shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.3);
         }
         
-        body { font-family: 'Plus Jakarta Sans', sans-serif; background-color: var(--bg-body); color: var(--text-main); -webkit-tap-highlight-color: transparent; user-select: none; }
+        body { font-family: 'Plus Jakarta Sans', sans-serif; background-color: var(--bg-body); color: var(--text-main); transition: all 0.3s ease; -webkit-tap-highlight-color: transparent; }
 
-        /* Login */
-        .login-bg { background: linear-gradient(135deg, #fdfbfb 0%, #ebedee 100%); }
+        /* Login Background */
+        .login-wrapper {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            position: relative; overflow: hidden;
+        }
 
-        /* UI Elements */
+        /* Components */
         .card-ui {
             background: var(--bg-card); border: 1px solid var(--border);
-            border-radius: 16px; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05);
-            padding: 1.25rem; margin-bottom: 1rem;
+            border-radius: 20px; box-shadow: var(--shadow);
+            padding: 1.25rem; transition: 0.3s;
         }
 
         .input-ui {
-            width: 100%; padding: 12px; background: #f8fafc; 
-            border: 1px solid var(--border); border-radius: 10px;
+            width: 100%; padding: 14px; background: var(--bg-body); 
+            border: 1px solid var(--border); border-radius: 12px;
             color: var(--text-main); font-weight: 500; transition: 0.3s;
         }
-        .input-ui:focus { border-color: var(--primary); outline: none; box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.1); }
+        .input-ui:focus { border-color: var(--primary); outline: none; box-shadow: 0 0 0 3px var(--primary-light); }
 
         .btn-primary {
-            background: var(--primary); color: white; padding: 12px; 
-            border-radius: 10px; font-weight: 700; letter-spacing: 0.5px;
-            width: 100%; box-shadow: 0 4px 6px rgba(79, 70, 229, 0.2);
+            background: var(--primary); color: white; padding: 14px; 
+            border-radius: 12px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px;
+            width: 100%; transition: 0.2s; box-shadow: 0 4px 10px rgba(0,0,0,0.1);
         }
-        .btn-primary:active { transform: scale(0.96); }
+        .btn-primary:active { transform: scale(0.96); opacity: 0.9; }
 
-        /* History Items */
-        .history-item {
-            display: flex; justify-content: space-between; align-items: center;
-            background: #fff; padding: 10px; border-radius: 8px; margin-bottom: 8px;
-            border: 1px solid #e2e8f0; border-left: 4px solid var(--primary);
+        /* Action Buttons */
+        .action-btn {
+            display: flex; flex-direction: column; align-items: center; justify-content: center;
+            background: var(--bg-card); padding: 16px; border-radius: 18px;
+            border: 1px solid var(--border); transition: 0.2s; cursor: pointer; box-shadow: var(--shadow);
         }
+        .action-btn:active { transform: scale(0.95); }
+        .action-btn i { font-size: 1.8rem; margin-bottom: 6px; }
 
         /* Bottom Nav */
         .bottom-nav {
-            background: rgba(255, 255, 255, 0.95); backdrop-filter: blur(10px);
+            background: var(--bg-nav); backdrop-filter: blur(12px);
             border-top: 1px solid var(--border);
-            height: 70px; display: flex; align-items: center; justify-content: space-around;
-            padding-bottom: 5px; position: fixed; bottom: 0; width: 100%; z-index: 50;
+            height: 75px;
+            display: flex; align-items: center; justify-content: space-around;
+            padding-bottom: 5px; box-shadow: 0 -5px 20px rgba(0,0,0,0.05);
         }
         .nav-item {
-            display: flex; flex-direction: column; align-items: center; 
-            color: #94a3b8; width: 50px; transition: 0.3s;
+            display: flex; flex-direction: column; align-items: center; justify-content: center;
+            color: var(--text-muted); transition: 0.3s; width: 60px;
         }
-        .nav-item i { font-size: 1.6rem; margin-bottom: 2px; }
-        .nav-item.active { color: var(--primary); transform: translateY(-5px); }
-        
+        .nav-item i { font-size: 2rem; margin-bottom: 2px; transition: 0.3s; }
+        .nav-item span { font-size: 0.6rem; font-weight: 700; letter-spacing: 0.5px; }
+        .nav-item.active { color: var(--primary); }
+        .nav-item.active i { transform: translateY(-4px); filter: drop-shadow(0 4px 6px var(--primary-light)); }
+
+        /* Dashboard Stat Cards */
+        .stat-card {
+            background: var(--bg-card); border-radius: 16px; padding: 16px;
+            border: 1px solid var(--border); box-shadow: var(--shadow);
+            display: flex; align-items: center; justify-content: space-between;
+        }
+
+        /* Sub-tabs */
+        .sub-tab {
+            padding: 10px; font-size: 0.8rem; font-weight: 700; color: var(--text-muted);
+            border-bottom: 3px solid transparent; cursor: pointer; text-align: center; flex: 1;
+        }
+        .sub-tab.active { color: var(--primary); border-bottom-color: var(--primary); background: var(--primary-light); }
+
         .fade-in { animation: fadeIn 0.4s ease-out forwards; }
         @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
         ::-webkit-scrollbar { width: 0px; }
@@ -73,29 +110,27 @@
 <body class="h-screen flex flex-col overflow-hidden">
 
     <!-- 1. LOGIN SCREEN -->
-    <div id="authSection" class="fixed inset-0 z-50 flex items-center justify-center p-6 login-bg">
-        <div class="bg-white w-full max-w-sm p-8 rounded-3xl shadow-xl fade-in border border-white">
+    <div id="authSection" class="fixed inset-0 z-50 flex items-center justify-center p-6 login-wrapper">
+        <div class="bg-white/90 backdrop-blur-xl w-full max-w-sm p-8 rounded-3xl shadow-2xl fade-in relative z-10 border border-white">
             <div class="text-center mb-8">
-                <div class="w-16 h-16 bg-indigo-50 rounded-2xl flex items-center justify-center mx-auto mb-4 text-indigo-600">
-                    <i class="fa-solid fa-bolt text-3xl"></i>
+                <div class="w-20 h-20 bg-indigo-600 rounded-2xl flex items-center justify-center mx-auto mb-4 shadow-lg text-white">
+                    <i class="fa-solid fa-bolt text-4xl"></i>
                 </div>
-                <h1 class="text-2xl font-bold text-slate-800">Utility Master</h1>
-                <p class="text-xs text-slate-500 font-bold uppercase tracking-widest">Enterprise Edition</p>
+                <h1 class="text-3xl font-extrabold text-slate-800 tracking-tight">Utility<span class="text-indigo-600">Master</span></h1>
+                <p class="text-slate-500 text-xs mt-1 font-bold uppercase tracking-widest">Enterprise Edition</p>
             </div>
-
-            <div id="loginForm" class="space-y-4">
-                <input type="email" id="logEmail" class="input-ui" placeholder="User ID">
-                <input type="password" id="logPass" class="input-ui" placeholder="Password">
-                <button onclick="handleLogin()" id="loginBtn" class="btn-primary">LOGIN DASHBOARD</button>
-                <p class="text-center text-xs text-slate-400 mt-4 cursor-pointer" onclick="toggleAuth('signup')">Create Account</p>
+            <div id="loginForm" class="space-y-5">
+                <div class="relative"><i class="fa-solid fa-envelope absolute left-4 top-4 text-slate-400"></i><input type="email" id="logEmail" class="w-full p-4 pl-12 bg-slate-50 border border-slate-200 rounded-xl outline-none focus:border-indigo-500" placeholder="User ID"></div>
+                <div class="relative"><i class="fa-solid fa-lock absolute left-4 top-4 text-slate-400"></i><input type="password" id="logPass" class="w-full p-4 pl-12 bg-slate-50 border border-slate-200 rounded-xl outline-none focus:border-indigo-500" placeholder="Password"></div>
+                <button onclick="handleLogin()" id="loginBtn" class="w-full bg-indigo-600 hover:bg-indigo-700 text-white py-4 rounded-xl font-bold shadow-lg">LOGIN DASHBOARD</button>
+                <p class="text-center text-slate-500 text-xs mt-4">New User? <span class="text-indigo-600 cursor-pointer hover:underline font-bold" onclick="toggleAuth('signup')">Request Access</span></p>
             </div>
-
-            <div id="signupForm" class="space-y-4 hidden">
-                <input type="text" id="signName" class="input-ui" placeholder="Full Name">
-                <input type="email" id="signEmail" class="input-ui" placeholder="Email Address">
-                <input type="password" id="signPass" class="input-ui" placeholder="Set Password">
-                <button onclick="handleSignup()" id="signupBtn" class="btn-primary bg-slate-800">SUBMIT REQUEST</button>
-                <p class="text-center text-xs text-slate-400 mt-4 cursor-pointer" onclick="toggleAuth('login')">← Back to Login</p>
+            <div id="signupForm" class="space-y-5 hidden">
+                <input type="text" id="signName" class="w-full p-4 bg-slate-50 border border-slate-200 rounded-xl" placeholder="Full Name">
+                <input type="email" id="signEmail" class="w-full p-4 bg-slate-50 border border-slate-200 rounded-xl" placeholder="Email Address">
+                <input type="password" id="signPass" class="w-full p-4 bg-slate-50 border border-slate-200 rounded-xl" placeholder="Set Password">
+                <button onclick="handleSignup()" id="signupBtn" class="w-full bg-slate-800 text-white py-4 rounded-xl font-bold">SUBMIT REQUEST</button>
+                <p class="text-center text-slate-500 text-xs mt-4 cursor-pointer" onclick="toggleAuth('login')">← Back to Login</p>
             </div>
         </div>
     </div>
@@ -104,424 +139,309 @@
     <div id="appSection" class="hidden h-full flex flex-col">
         
         <!-- Header -->
-        <header class="bg-white px-5 py-4 shadow-sm flex justify-between items-center z-20 sticky top-0 border-b border-slate-100">
+        <header class="bg-card px-5 py-4 shadow-sm flex justify-between items-center z-20 sticky top-0 border-b" style="background-color: var(--bg-card); border-color: var(--border);">
             <div class="flex items-center gap-3">
-                <div class="w-9 h-9 bg-indigo-50 rounded-lg flex items-center justify-center text-indigo-600 font-bold">
-                    <i class="fa-solid fa-layer-group"></i>
+                <div class="w-10 h-10 bg-primary-light rounded-xl flex items-center justify-center text-primary font-bold shadow-sm" style="background-color: var(--primary-light); color: var(--primary);">
+                    <i class="fa-solid fa-layer-group text-xl"></i>
                 </div>
                 <div>
-                    <h2 class="text-lg font-bold text-slate-800 leading-none">Dashboard</h2>
-                    <p class="text-[10px] text-emerald-600 font-bold mt-1" id="userBadge">● ONLINE</p>
+                    <h2 class="text-lg font-bold tracking-tight leading-none">Dashboard</h2>
+                    <div class="flex items-center gap-1.5 mt-1">
+                        <div class="w-2 h-2 bg-emerald-500 rounded-full animate-pulse"></div>
+                        <p class="text-[10px] text-muted font-bold tracking-wide" id="userBadge">ONLINE</p>
+                    </div>
                 </div>
             </div>
-            <button onclick="logout()" class="w-9 h-9 rounded-full bg-red-50 text-red-500 flex items-center justify-center">
-                <i class="fa-solid fa-power-off"></i>
-            </button>
+            <div class="flex gap-3">
+                <button onclick="toggleTheme()" class="w-10 h-10 rounded-full bg-body border border-border flex items-center justify-center text-muted hover:text-primary transition" style="background-color: var(--bg-body); border-color: var(--border);"><i class="fa-solid fa-circle-half-stroke text-lg"></i></button>
+                <button onclick="logout()" class="w-10 h-10 rounded-full bg-red-50 text-red-500 hover:bg-red-500 hover:text-white transition flex items-center justify-center"><i class="fa-solid fa-power-off text-lg"></i></button>
+            </div>
         </header>
 
         <!-- Main Content -->
-        <main class="flex-1 overflow-y-auto p-5 pb-24 scroll-smooth">
+        <main class="flex-1 overflow-y-auto p-5 pb-28 scroll-smooth">
 
             <!-- VIEW 1: REPORT DASHBOARD -->
-            <div id="viewReport" class="view-pane fade-in space-y-4">
+            <div id="viewReport" class="view-pane fade-in space-y-5">
                 <div class="card-ui bg-gradient-to-r from-blue-600 to-indigo-600 text-white border-none">
-                    <h2 class="text-xl font-bold">Welcome Back 👋</h2>
-                    <p class="text-xs opacity-90">Overview of your utility stats.</p>
+                    <h2 class="text-2xl font-bold mb-1">Hello, <span id="dashUserName">User</span> 👋</h2>
+                    <p class="text-sm opacity-90">Here is your daily activity overview.</p>
                 </div>
-
                 <div class="grid grid-cols-2 gap-4">
-                    <div class="card-ui flex items-center justify-between !mb-0">
-                        <div>
-                            <p class="text-[10px] font-bold text-slate-400 uppercase">Expense</p>
-                            <h3 class="text-lg font-bold text-red-500">₹<span id="dashExpense">0</span></h3>
-                        </div>
-                        <i class="fa-solid fa-arrow-trend-down text-red-200 text-xl"></i>
+                    <div class="stat-card">
+                        <div><p class="text-xs font-bold text-muted uppercase">Total Spent</p><h3 class="text-xl font-bold text-red-500 mt-1">₹<span id="dashExpense">0</span></h3></div>
+                        <div class="w-10 h-10 rounded-full bg-red-100 flex items-center justify-center text-red-500"><i class="fa-solid fa-arrow-trend-down"></i></div>
                     </div>
-                    <div class="card-ui flex items-center justify-between !mb-0">
-                        <div>
-                            <p class="text-[10px] font-bold text-slate-400 uppercase">Income</p>
-                            <h3 class="text-lg font-bold text-emerald-500">₹<span id="dashIncome">0</span></h3>
-                        </div>
-                        <i class="fa-solid fa-arrow-trend-up text-emerald-200 text-xl"></i>
+                    <div class="stat-card">
+                        <div><p class="text-xs font-bold text-muted uppercase">Total Income</p><h3 class="text-xl font-bold text-emerald-500 mt-1">₹<span id="dashIncome">0</span></h3></div>
+                        <div class="w-10 h-10 rounded-full bg-emerald-100 flex items-center justify-center text-emerald-500"><i class="fa-solid fa-arrow-trend-up"></i></div>
                     </div>
                 </div>
-
                 <div class="card-ui p-0 overflow-hidden">
-                    <div class="p-3 border-b border-slate-100 flex justify-between">
-                        <h3 class="text-xs font-bold text-slate-500 uppercase">Recent Activity</h3>
-                        <button onclick="loadReportData()" class="text-xs text-indigo-600 font-bold"><i class="fa-solid fa-rotate"></i></button>
+                    <div class="p-4 border-b border-border flex justify-between items-center">
+                        <h3 class="text-sm font-bold text-muted uppercase">Combined History</h3>
+                        <button onclick="loadReportData()" class="text-xs text-primary font-bold"><i class="fa-solid fa-rotate"></i></button>
                     </div>
-                    <div id="dashHistoryList" class="p-2 text-xs">Loading...</div>
+                    <div id="dashHistoryList" class="divide-y divide-border text-sm p-2">
+                        <p class="text-center text-xs text-muted py-6">Loading...</p>
+                    </div>
                 </div>
             </div>
 
             <!-- VIEW 2: METER READING -->
-            <div id="viewMeter" class="view-pane hidden fade-in space-y-4">
+            <div id="viewMeter" class="view-pane hidden fade-in max-w-lg mx-auto space-y-6">
                 <div class="card-ui">
-                    <h3 class="text-xs font-bold text-slate-400 uppercase mb-3 flex items-center gap-2">
-                        <i class="fa-solid fa-gauge-high text-orange-500"></i> Generator
-                    </h3>
-                    <select id="dgModel" class="input-ui font-bold mb-3">
-                        <option value="0">Select Unit...</option>
-                        <option value="40">Kirloskar 7.5 kVA (40 L)</option>
-                        <option value="50">Kirloskar 15 kVA (50 L)</option>
-                        <option value="75">Kirloskar 30 kVA (75 L)</option>
-                        <option value="80">Cummins 35 kVA (80 L)</option>
-                        <option value="100">Ashok Leyland 40 kVA (100 L)</option>
-                        <option value="150">Mahindra 60 kVA (150 L)</option>
-                        <option value="160">Kirloskar 82.5 kVA (160 L)</option>
-                        <option value="180">Ashok Leyland 100 kVA (180 L)</option>
-                        <option value="200">Cummins 125 kVA (200 L)</option>
-                        <option value="250">Kirloskar 160 kVA (250 L)</option>
-                        <option value="350">Ashok Leyland 250 kVA (350 L)</option>
-                        <option value="-1">Custom Tank</option>
-                    </select>
-                    <input type="number" id="dgCustom" class="input-ui mb-3 hidden" placeholder="Capacity (L)">
-                    <div class="grid grid-cols-2 gap-3">
-                        <input type="number" id="dgHeight" value="7.0" class="input-ui text-center font-bold" placeholder="Height">
-                        <input type="number" id="dgReading" placeholder="Reading" class="input-ui text-center font-bold text-indigo-600">
+                    <div class="flex justify-between items-center mb-5">
+                        <h3 class="text-sm font-bold text-muted flex items-center gap-2 uppercase tracking-wider"><i class="fa-solid fa-gauge-high text-orange-500"></i> Generator</h3>
+                        <span class="text-[10px] text-white bg-orange-500 px-2 py-1 rounded-full font-bold shadow-sm">LIVE</span>
+                    </div>
+                    <select id="dgModel" class="input-ui font-bold mb-4"><option value="0">Select Unit...</option><option value="40">Kirloskar 7.5 kVA (40 L)</option><option value="50">Kirloskar 15 kVA (50 L)</option><option value="75">Kirloskar 30 kVA (75 L)</option><option value="80">Cummins 35 kVA (80 L)</option><option value="100">Ashok Leyland 40 kVA (100 L)</option><option value="150">Mahindra 60 kVA (150 L)</option><option value="160">Kirloskar 82.5 kVA (160 L)</option><option value="180">Ashok Leyland 100 kVA (180 L)</option><option value="200">Cummins 125 kVA (200 L)</option><option value="250">Kirloskar 160 kVA (250 L)</option><option value="350">Ashok Leyland 250 kVA (350 L)</option><option value="-1">Custom Tank</option></select>
+                    <input type="number" id="dgCustom" class="input-ui mb-4 hidden" placeholder="Capacity (L)">
+                    <div class="grid grid-cols-2 gap-4">
+                        <div><label class="text-[10px] text-muted uppercase font-bold mb-1 block">Total Height</label><input type="number" id="dgHeight" value="7.0" class="input-ui text-center font-bold text-xl"></div>
+                        <div><label class="text-[10px] text-muted uppercase font-bold mb-1 block">Current Reading</label><input type="number" id="dgReading" placeholder="0.0" class="input-ui text-center font-bold text-xl text-primary border-primary"></div>
                     </div>
                 </div>
-
-                <div class="card-ui bg-slate-900 text-white border-none relative overflow-hidden">
+                <div class="card-ui border-2 border-primary/20 relative overflow-hidden" style="background-color: var(--bg-card);">
                     <div class="flex justify-between items-end mb-4 relative z-10">
-                        <div>
-                            <p class="text-[10px] text-slate-400 font-bold uppercase tracking-widest">FUEL LEVEL</p>
-                            <p id="resPercent" class="text-4xl font-bold text-orange-400">0%</p>
-                        </div>
-                        <div class="text-right">
-                            <p class="text-[10px] text-slate-400 font-bold uppercase tracking-widest">VOLUME</p>
-                            <p id="resQty" class="text-2xl font-bold">0.0 L</p>
-                        </div>
+                        <div><p class="text-[10px] text-muted font-bold uppercase tracking-widest">FUEL LEVEL</p><p id="resPercent" class="text-4xl font-black text-orange-500">0%</p></div>
+                        <div class="text-right"><p class="text-[10px] text-muted font-bold uppercase tracking-widest">VOLUME</p><p id="resQty" class="text-2xl font-bold" style="color: var(--text-main);">0.0 L</p></div>
                     </div>
-                    <div class="w-full h-2 bg-slate-700 rounded-full mb-4 relative z-10">
-                        <div id="progressBar" class="h-full bg-orange-500 w-0 transition-all duration-700 rounded-full"></div>
-                    </div>
-                    <button onclick="saveMeter()" id="saveMeterBtn" class="w-full bg-white text-slate-900 py-3 rounded-lg text-xs font-bold uppercase relative z-10">LOG READING</button>
-                    <i class="fa-solid fa-gas-pump absolute -right-5 -bottom-5 text-9xl text-white opacity-5"></i>
+                    <div class="w-full h-3 bg-gray-200 rounded-full overflow-hidden mb-6 relative z-10"><div id="progressBar" class="h-full bg-orange-500 w-0 transition-all duration-700"></div></div>
+                    <button onclick="saveMeter()" id="saveMeterBtn" class="btn-primary relative z-10">LOG READING</button>
                 </div>
-
-                <div>
-                    <h3 class="text-xs font-bold text-slate-400 uppercase mb-2 ml-1">Recent Readings</h3>
-                    <div id="meterHistoryList" class="space-y-2">
-                         <p class="text-center text-xs text-slate-400 py-2">No history loaded.</p>
-                    </div>
-                </div>
+                <div><h3 class="text-xs font-bold text-muted uppercase mb-3 ml-1 tracking-wider">Recent Readings</h3><div id="meterHistoryList" class="space-y-2"><div class="text-center text-[10px] text-muted py-4">No history yet.</div></div></div>
             </div>
 
             <!-- VIEW 3: FUEL PRICE -->
-            <div id="viewFuel" class="view-pane hidden fade-in space-y-4">
+            <div id="viewFuel" class="view-pane hidden fade-in max-w-lg mx-auto space-y-5">
                 <div class="card-ui">
-                    <div class="flex justify-between items-center mb-4">
-                        <h3 class="text-xs font-bold text-slate-400 uppercase">Market Rates</h3>
-                        <button onclick="fetchFuelPrices()" class="text-[10px] bg-indigo-50 text-indigo-600 px-2 py-1 rounded font-bold"><i class="fa-solid fa-rotate"></i> Sync</button>
+                    <div class="flex justify-between items-center mb-5">
+                        <h3 class="text-sm font-bold text-muted uppercase tracking-wide">Market Rates</h3>
+                        <button onclick="fetchFuelPrices()" class="text-[10px] bg-primary-light text-primary px-3 py-1.5 rounded-full font-bold hover:bg-opacity-80 transition" style="background-color: var(--primary-light); color: var(--primary);"><i class="fa-solid fa-rotate mr-1"></i> SYNC</button>
                     </div>
-                    <select id="fuelState" class="input-ui mb-4 text-sm font-bold" onchange="updateFuelDisplay()"><option>Select State...</option></select>
-                    <div class="grid grid-cols-3 gap-2 text-center">
-                        <div class="p-2 bg-emerald-50 rounded-lg border border-emerald-100">
-                            <p class="text-[9px] font-bold text-emerald-600">PETROL</p>
-                            <p id="pricePetrol" class="font-bold text-slate-800">--</p>
-                        </div>
-                        <div class="p-2 bg-blue-50 rounded-lg border border-blue-100">
-                            <p class="text-[9px] font-bold text-blue-600">DIESEL</p>
-                            <p id="priceDiesel" class="font-bold text-slate-800">--</p>
-                        </div>
-                        <div class="p-2 bg-amber-50 rounded-lg border border-amber-100">
-                            <p class="text-[9px] font-bold text-amber-600">CNG</p>
-                            <p id="priceCNG" class="font-bold text-slate-800">--</p>
-                        </div>
+                    <select id="fuelState" class="input-ui mb-5 font-bold" onchange="updateFuelDisplay()"><option>Select State...</option></select>
+                    <div class="grid grid-cols-3 gap-3 text-center">
+                        <div class="p-3 bg-emerald-50 rounded-xl border border-emerald-100"><p class="text-[10px] font-bold text-emerald-600 mb-1">PETROL</p><p id="pricePetrol" class="font-bold text-slate-800 text-lg">--</p></div>
+                        <div class="p-3 bg-blue-50 rounded-xl border border-blue-100"><p class="text-[10px] font-bold text-blue-600 mb-1">DIESEL</p><p id="priceDiesel" class="font-bold text-slate-800 text-lg">--</p></div>
+                        <div class="p-3 bg-amber-50 rounded-xl border border-amber-100"><p class="text-[10px] font-bold text-amber-600 mb-1">CNG</p><p id="priceCNG" class="font-bold text-slate-800 text-lg">--</p></div>
                     </div>
                 </div>
-
                 <div class="card-ui">
-                    <h3 class="text-xs font-bold text-slate-400 uppercase mb-3">Calculator</h3>
-                    <div class="flex gap-2 mb-3">
-                        <button onclick="setCalcMode('cost')" id="btnCost" class="flex-1 py-2 text-[10px] font-bold rounded bg-slate-800 text-white">QTY → COST</button>
-                        <button onclick="setCalcMode('qty')" id="btnQty" class="flex-1 py-2 text-[10px] font-bold rounded bg-slate-100 text-slate-500">COST → QTY</button>
-                    </div>
-                    <div class="flex gap-2 items-center mb-3">
-                        <select id="calcFuelType" class="input-ui w-1/3 !py-2 text-[10px] font-bold"><option>Petrol</option><option>Diesel</option><option>CNG</option></select>
-                        <input type="number" id="calcInput" class="input-ui font-bold text-lg text-right" placeholder="0.00" oninput="runFuelCalc()">
-                    </div>
-                    <div class="flex justify-between items-center bg-slate-900 p-3 rounded-lg text-white mb-3">
-                        <span class="text-[10px] font-bold opacity-70">ESTIMATED</span>
-                        <span id="calcResult" class="font-mono text-xl font-bold text-yellow-400">0.00</span>
-                    </div>
-                    <div class="pt-3 border-t border-slate-100 flex gap-2">
-                         <select id="calcVehicle" class="input-ui text-xs py-2"><option value="">Select Vehicle...</option></select>
-                         <button onclick="saveFuelCalc()" class="bg-indigo-600 text-white px-4 py-2 rounded-lg text-[10px] font-bold w-1/3">SAVE</button>
-                    </div>
+                    <h3 class="text-xs font-bold text-muted uppercase mb-4 tracking-widest">Cost Estimator</h3>
+                    <div class="flex gap-3 mb-4"><button onclick="setCalcMode('cost')" id="btnCost" class="flex-1 py-3 text-[10px] font-bold rounded-lg bg-slate-800 text-white shadow-lg">QTY → COST</button><button onclick="setCalcMode('qty')" id="btnQty" class="flex-1 py-3 text-[10px] font-bold rounded-lg bg-slate-100 text-slate-500">COST → QTY</button></div>
+                    <div class="flex gap-3 items-center mb-4"><select id="calcFuelType" class="input-ui w-1/3 !py-3 text-[10px] uppercase font-bold"><option>Petrol</option><option>Diesel</option><option>CNG</option></select><input type="number" id="calcInput" class="input-ui font-bold text-lg text-right" placeholder="0.00" oninput="runFuelCalc()"></div>
+                    <div class="flex justify-between items-center bg-slate-900 p-4 rounded-xl text-white mb-4 shadow-lg"><span class="text-xs font-bold opacity-70">ESTIMATED</span><span id="calcResult" class="font-mono text-2xl font-bold text-yellow-400">0.00</span></div>
+                    <div class="pt-4 border-t border-border"><p class="text-[10px] text-muted font-bold mb-2 uppercase">Record Transaction</p><div class="flex gap-2"><select id="calcVehicle" class="input-ui text-xs py-2"><option value="">Select Vehicle...</option></select><button onclick="saveFuelCalc()" class="bg-primary hover:opacity-90 text-white px-4 py-2 rounded-lg text-[10px] font-bold shadow-md w-1/3" style="background-color: var(--primary);">SAVE</button></div></div>
                 </div>
-
-                <div>
-                     <h3 class="text-xs font-bold text-slate-400 uppercase mb-2 ml-1">Recent Records</h3>
-                     <div id="fuelHistoryList" class="space-y-2">
-                         <p class="text-center text-xs text-slate-400 py-2">No history.</p>
-                     </div>
-                </div>
+                <div class="card-ui p-0 overflow-hidden"><div class="p-3 bg-gray-50 border-b border-border"><h3 class="text-xs font-bold text-muted uppercase ml-1">Recent Refuels</h3></div><div id="fuelHistoryList" class="p-2 space-y-2"><div class="text-center text-[10px] text-muted py-4">No history yet.</div></div></div>
             </div>
 
-            <!-- VIEW 4: ADMIN -->
-            <div id="viewAdmin" class="view-pane hidden fade-in">
-                <div class="card-ui">
-                    <h3 class="text-xs font-bold text-slate-400 uppercase mb-4 border-b border-slate-100 pb-2">Admin Console</h3>
-                    <div class="space-y-3">
-                        <div class="bg-slate-50 p-3 rounded-lg border border-slate-200">
-                             <p class="text-[10px] font-bold text-slate-500 mb-2">ADD USER</p>
-                             <input id="uName" placeholder="Name" class="input-ui mb-2 text-xs">
-                             <input id="uEmail" placeholder="Email" class="input-ui mb-2 text-xs">
-                             <div class="flex gap-2 mb-2">
-                                 <input id="uPass" placeholder="Pass" class="input-ui text-xs">
-                                 <select id="uRole" class="input-ui text-xs"><option>User</option><option>Admin</option></select>
-                             </div>
-                             <button onclick="submitAdminUser()" class="w-full bg-blue-600 text-white py-2 rounded text-[10px] font-bold">CREATE</button>
-                        </div>
-                        <a href="https://docs.google.com/spreadsheets" target="_blank" class="block text-center p-3 bg-green-50 text-green-700 rounded-lg text-xs font-bold border border-green-100">OPEN GOOGLE DATABASE</a>
-                        <div id="adminUserList" class="text-[10px] h-32 overflow-y-auto">Loading...</div>
-                    </div>
-                </div>
+            <!-- VIEW 4: VEHICLE MANAGEMENT -->
+            <div id="viewVehicle" class="view-pane hidden fade-in max-w-lg mx-auto space-y-6">
+                <div class="flex bg-card rounded-xl shadow-sm border border-border mb-4 p-1" style="background-color: var(--bg-card);"><div onclick="switchVehicleSub('Ops')" class="sub-tab active rounded-lg" id="vSubOps">ACTIONS</div><div onclick="switchVehicleSub('List')" class="sub-tab rounded-lg" id="vSubList">FLEET</div><div onclick="switchVehicleSub('Logs')" class="sub-tab rounded-lg" id="vSubLogs">LOGS</div></div>
+                <div id="vOps" class="space-y-4"><div class="grid grid-cols-3 gap-3">
+                    <button onclick="openModal('refuel')" class="action-btn group hover:border-green-400"><i class="fa-solid fa-gas-pump text-green-500 mb-1"></i><span class="text-xs font-bold text-muted">Refuel</span></button>
+                    <button onclick="openModal('route')" class="action-btn group hover:border-orange-400"><i class="fa-solid fa-route text-orange-500 mb-1"></i><span class="text-xs font-bold text-muted">Route</span></button>
+                    <button onclick="openModal('service')" class="action-btn group hover:border-blue-400"><i class="fa-solid fa-wrench text-blue-500 mb-1"></i><span class="text-xs font-bold text-muted">Service</span></button>
+                    <button onclick="openModal('expense')" class="action-btn group hover:border-red-400"><i class="fa-solid fa-file-invoice-dollar text-red-500 mb-1"></i><span class="text-xs font-bold text-muted">Expense</span></button>
+                    <button onclick="openModal('income')" class="action-btn group hover:border-teal-400"><i class="fa-solid fa-sack-dollar text-teal-500 mb-1"></i><span class="text-xs font-bold text-muted">Income</span></button>
+                    <button onclick="openModal('register')" class="action-btn group hover:border-primary"><i class="fa-solid fa-car text-primary mb-1" style="color: var(--primary);"></i><span class="text-xs font-bold text-muted">Add Car</span></button>
+                </div></div>
+                <div id="vList" class="hidden space-y-3"><div id="fleetListContainer" class="text-center text-xs text-muted py-8 bg-card rounded-2xl border border-border"><i class="fa-solid fa-circle-notch fa-spin mb-2 text-primary"></i><br>Syncing...</div></div>
+                <div id="vLogs" class="hidden space-y-3"><div id="vehicleLogContainer" class="text-center text-xs text-muted py-8 bg-card rounded-2xl border border-border"><i class="fa-solid fa-circle-notch fa-spin mb-2 text-primary"></i><br>Loading...</div></div>
             </div>
 
+            <!-- VIEW 5: TOOLS -->
+            <div id="viewTools" class="view-pane hidden fade-in max-w-lg mx-auto space-y-5">
+                <div class="card-ui"><h3 class="text-xs font-bold text-muted mb-4 flex items-center gap-2 uppercase tracking-wide"><i class="fa-solid fa-magnifying-glass text-primary" style="color: var(--primary);"></i> Vehicle Search</h3><div class="relative mb-5"><input type="text" id="rtoSearchInput" placeholder="Enter Vehicle No..." class="input-ui pl-11 uppercase font-mono tracking-wider"><i class="fa-solid fa-car absolute left-4 top-4 text-muted"></i><button onclick="searchVehicle()" class="absolute right-2 top-2 bg-slate-900 text-white px-4 py-2 rounded-lg text-[10px] font-bold hover:bg-black transition">FIND</button></div><div id="rtoResult" class="hidden bg-slate-50 p-5 rounded-xl border border-border text-sm space-y-3"><div class="flex justify-between items-center"><span class="text-muted text-xs font-bold">PLATE</span> <span id="rtoPlate" class="font-mono font-bold text-slate-800 bg-white px-2 py-1 rounded border">--</span></div><div class="flex justify-between items-center"><span class="text-muted text-xs font-bold">OWNER</span> <span id="rtoOwner" class="font-bold text-primary">--</span></div><div class="flex justify-between items-center"><span class="text-muted text-xs font-bold">MODEL</span> <span id="rtoModel" class="font-bold text-slate-700">--</span></div></div><div id="rtoExternal" class="hidden bg-blue-50 p-5 rounded-xl border border-blue-100 text-sm space-y-2 mt-3 text-center"><div class="text-blue-500 font-bold">Not in Fleet.</div><p class="text-xs text-blue-400">Register this vehicle?</p><button onclick="openModal('register')" class="mt-2 bg-blue-600 text-white px-6 py-2.5 rounded-lg text-xs font-bold shadow-lg hover:bg-blue-700 w-full">ADD TO SYSTEM</button></div></div>
+            </div>
+
+            <!-- VIEW 6: ADMIN -->
+            <div id="viewAdmin" class="view-pane hidden fade-in max-w-lg mx-auto">
+                <div class="card-ui"><h3 class="font-bold text-muted mb-5 text-xs border-b border-border pb-2 uppercase tracking-wider">Admin Console</h3><div class="grid grid-cols-2 gap-4 mb-6"><button onclick="openModal('create_user')" class="p-4 bg-blue-50 text-blue-700 border border-blue-100 rounded-xl text-left hover:bg-blue-100 transition shadow-sm"><i class="fa-solid fa-user-plus text-xl mb-2 block"></i><span class="text-[10px] font-bold uppercase">Add User</span></button><a href="https://docs.google.com/spreadsheets" target="_blank" class="p-4 bg-green-50 text-green-700 border border-green-100 rounded-xl text-left hover:bg-green-100 transition shadow-sm block"><i class="fa-solid fa-database text-xl mb-2 block"></i><span class="text-[10px] font-bold uppercase">Database</span></a></div><div class="bg-gray-50 rounded-xl border border-border overflow-hidden"><div class="px-4 py-3 border-b border-border bg-white flex justify-between items-center"><span class="text-[10px] font-bold text-muted uppercase tracking-widest">User Registry</span><button onclick="loadUsers()" class="text-primary hover:opacity-70" style="color: var(--primary);"><i class="fa-solid fa-rotate"></i></button></div><div id="adminUserList" class="text-xs space-y-0 text-muted font-mono h-48 overflow-y-auto divide-y divide-border bg-white"><p class="text-center py-4 text-muted">Loading...</p></div></div></div>
+            </div>
         </main>
 
-        <!-- BOTTOM NAV (BIG ICONS) -->
-        <nav class="bottom-nav">
-            <div onclick="switchView('Report')" class="nav-item active"><i class="fa-solid fa-chart-pie"></i></div>
-            <div onclick="switchView('Meter')" class="nav-item"><i class="fa-solid fa-gauge-high"></i></div>
-            <div onclick="switchView('Fuel')" class="nav-item"><i class="fa-solid fa-gas-pump"></i></div>
-            <div id="adminMobile" onclick="switchView('Admin')" class="nav-item hidden text-red-500"><i class="fa-solid fa-lock"></i></div>
+        <!-- BOTTOM NAV -->
+        <nav class="bottom-nav fixed bottom-0 left-0 w-full z-40">
+            <div onclick="switchView('Report')" class="nav-item active report-active" title="Dashboard"><i class="fa-solid fa-chart-pie"></i></div>
+            <div onclick="switchView('Meter')" class="nav-item meter-active" title="Meter"><i class="fa-solid fa-gauge-high"></i></div>
+            <div onclick="switchView('Fuel')" class="nav-item fuel-active" title="Fuel"><i class="fa-solid fa-gas-pump"></i></div>
+            <div onclick="switchView('Vehicle')" class="nav-item vehicle-active" title="Vehicle"><i class="fa-solid fa-car"></i></div>
+            <div onclick="switchView('Tools')" class="nav-item tools-active" title="Search"><i class="fa-solid fa-magnifying-glass"></i></div>
+            <div id="adminMobile" onclick="switchView('Admin')" class="nav-item admin-active hidden" title="Admin"><i class="fa-solid fa-lock"></i></div>
         </nav>
+    </div>
 
+    <!-- MODAL -->
+    <div id="dataModal" class="fixed inset-0 z-50 hidden bg-black/80 backdrop-blur-sm flex items-end md:items-center justify-center p-0 md:p-4">
+        <div class="card-ui w-full md:w-[450px] rounded-t-3xl md:rounded-2xl p-6 shadow-2xl max-h-[85vh] overflow-y-auto slide-up border-t-4 border-primary" style="border-top-color: var(--primary);">
+            <div class="flex justify-between items-center mb-6 pb-3 border-b border-border"><h3 id="modalTitle" class="text-lg font-bold text-main font-tech uppercase tracking-wide">ENTRY</h3><button onclick="closeModal()" class="w-8 h-8 rounded-full bg-slate-100 text-slate-500 hover:bg-red-50 hover:text-red-500 transition"><i class="fa-solid fa-xmark"></i></button></div>
+            <div id="modalContent" class="space-y-4"></div>
+            <div class="flex gap-3 mt-6"><button onclick="closeModal()" class="flex-1 py-3.5 bg-slate-100 rounded-xl font-bold text-slate-500 text-xs hover:bg-slate-200">CANCEL</button><button onclick="submitData()" id="saveBtn" class="flex-1 py-3.5 btn-primary rounded-xl font-bold text-xs shadow-lg">SUBMIT</button></div>
+        </div>
     </div>
 
     <script>
         const API_URL = 'https://script.google.com/macros/s/AKfycbwuZevWQeFNwy41e-z40ymvbsyo8bPigXr4z2270uTdpeRm7d2KH2LV7i41y1qi-N2k-g/exec';
-        let currentUser = null;
-        let fuelData = [];
-        let fleetData = [];
+        let currentUser = null, fuelData = [], fleetData = [], currentModalMode = '';
 
-        // --- FIXED 36 STATES DATA ---
+        // FIXED 36 STATES
         const HARDCODED_FUEL_PRICES = {
-            "Andhra Pradesh (State)": { "Petrol": 109.57, "Diesel": 97.39, "CNG": 88.17 },
-            "Arunachal Pradesh (State)": { "Petrol": 92.34, "Diesel": 81.86, "CNG": 0 },
-            "Assam (State)": { "Petrol": 98.93, "Diesel": 90.15, "CNG": 87.13 },
-            "Bihar (State)": { "Petrol": 106.28, "Diesel": 92.47, "CNG": 91.58 },
-            "Chhattisgarh (State)": { "Petrol": 101.62, "Diesel": 94.55, "CNG": 81.04 },
-            "Goa (State)": { "Petrol": 96.61, "Diesel": 88.37, "CNG": 92.00 },
-            "Gujarat (State)": { "Petrol": 95.00, "Diesel": 90.68, "CNG": 82.19 },
-            "Haryana (State)": { "Petrol": 95.79, "Diesel": 88.23, "CNG": 86.37 },
-            "Himachal Pradesh (State)": { "Petrol": 94.58, "Diesel": 86.62, "CNG": 91.98 },
-            "Jharkhand (State)": { "Petrol": 98.55, "Diesel": 93.29, "CNG": 89.27 },
-            "Karnataka (State)": { "Petrol": 103.38, "Diesel": 91.41, "CNG": 84.80 },
-            "Kerala (State)": { "Petrol": 106.35, "Diesel": 95.30, "CNG": 89.38 },
-            "Madhya Pradesh (State)": { "Petrol": 107.40, "Diesel": 92.75, "CNG": 88.60 },
-            "Maharashtra (State)": { "Petrol": 104.72, "Diesel": 91.25, "CNG": 87.91 },
-            "Manipur (State)": { "Petrol": 99.83, "Diesel": 85.85, "CNG": 0 },
-            "Meghalaya (State)": { "Petrol": 95.89, "Diesel": 87.31, "CNG": 0 },
-            "Mizoram (State)": { "Petrol": 99.49, "Diesel": 88.44, "CNG": 0 },
-            "Nagaland (State)": { "Petrol": 97.67, "Diesel": 89.01, "CNG": 0 },
-            "Odisha (State)": { "Petrol": 102.07, "Diesel": 93.63, "CNG": 89.19 },
-            "Punjab (State)": { "Petrol": 97.97, "Diesel": 87.78, "CNG": 87.29 },
-            "Rajasthan (State)": { "Petrol": 105.44, "Diesel": 90.89, "CNG": 89.11 },
-            "Sikkim (State)": { "Petrol": 103.30, "Diesel": 90.45, "CNG": 0 },
-            "Tamil Nadu (State)": { "Petrol": 101.81, "Diesel": 93.40, "CNG": 85.73 },
-            "Telangana (State)": { "Petrol": 108.03, "Diesel": 96.24, "CNG": 95.64 },
-            "Tripura (State)": { "Petrol": 97.25, "Diesel": 86.31, "CNG": 0 },
-            "Uttar Pradesh (State)": { "Petrol": 95.12, "Diesel": 88.25, "CNG": 90.73 },
-            "Uttarakhand (State)": { "Petrol": 93.81, "Diesel": 88.70, "CNG": 98.75 },
-            "West Bengal (State)": { "Petrol": 105.84, "Diesel": 92.41, "CNG": 0 }, 
-            "Andaman and Nicobar Islands (UT)": { "Petrol": 82.46, "Diesel": 78.05, "CNG": 0 },
-            "Chandigarh (UT)": { "Petrol": 94.30, "Diesel": 82.45, "CNG": 92.00 },
-            "Dadra and Nagar Haveli and Daman and Diu (UT)": { "Petrol": 92.74, "Diesel": 88.23, "CNG": 77.77 },
-            "Delhi (National Capital Territory - UT)": { "Petrol": 94.77, "Diesel": 87.67, "CNG": 77.09 },
-            "Jammu and Kashmir (UT)": { "Petrol": 98.87, "Diesel": 85.46, "CNG": 94.40 },
-            "Ladakh (UT)": { "Petrol": 104.09, "Diesel": 91.68, "CNG": 0 },
-            "Lakshadweep (UT)": { "Petrol": 100.75, "Diesel": 0, "CNG": 0 }, 
-            "Puducherry (UT)": { "Petrol": 95.78, "Diesel": 85.86, "CNG": 78.00 }
+            "Andhra Pradesh": { "Petrol": 109.57, "Diesel": 97.39, "CNG": 88.17 }, "Arunachal Pradesh": { "Petrol": 92.34, "Diesel": 81.86, "CNG": 0 }, "Assam": { "Petrol": 98.93, "Diesel": 90.15, "CNG": 87.13 },
+            "Bihar": { "Petrol": 106.28, "Diesel": 92.47, "CNG": 91.58 }, "Chhattisgarh": { "Petrol": 101.62, "Diesel": 94.55, "CNG": 81.04 }, "Goa": { "Petrol": 96.61, "Diesel": 88.37, "CNG": 92.00 },
+            "Gujarat": { "Petrol": 95.00, "Diesel": 90.68, "CNG": 82.19 }, "Haryana": { "Petrol": 95.79, "Diesel": 88.23, "CNG": 86.37 }, "Himachal Pradesh": { "Petrol": 94.58, "Diesel": 86.62, "CNG": 91.98 },
+            "Jharkhand": { "Petrol": 98.55, "Diesel": 93.29, "CNG": 89.27 }, "Karnataka": { "Petrol": 103.38, "Diesel": 91.41, "CNG": 84.80 }, "Kerala": { "Petrol": 106.35, "Diesel": 95.30, "CNG": 89.38 },
+            "Madhya Pradesh": { "Petrol": 107.40, "Diesel": 92.75, "CNG": 88.60 }, "Maharashtra": { "Petrol": 104.72, "Diesel": 91.25, "CNG": 87.91 }, "Manipur": { "Petrol": 99.83, "Diesel": 85.85, "CNG": 0 },
+            "Meghalaya": { "Petrol": 95.89, "Diesel": 87.31, "CNG": 0 }, "Mizoram": { "Petrol": 99.49, "Diesel": 88.44, "CNG": 0 }, "Nagaland": { "Petrol": 97.67, "Diesel": 89.01, "CNG": 0 },
+            "Odisha": { "Petrol": 102.07, "Diesel": 93.63, "CNG": 89.19 }, "Punjab": { "Petrol": 97.97, "Diesel": 87.78, "CNG": 87.29 }, "Rajasthan": { "Petrol": 105.44, "Diesel": 90.89, "CNG": 89.11 },
+            "Sikkim": { "Petrol": 103.30, "Diesel": 90.45, "CNG": 0 }, "Tamil Nadu": { "Petrol": 101.81, "Diesel": 93.40, "CNG": 85.73 }, "Telangana": { "Petrol": 108.03, "Diesel": 96.24, "CNG": 95.64 },
+            "Tripura": { "Petrol": 97.25, "Diesel": 86.31, "CNG": 0 }, "Uttar Pradesh": { "Petrol": 95.12, "Diesel": 88.25, "CNG": 90.73 }, "Uttarakhand": { "Petrol": 93.81, "Diesel": 88.70, "CNG": 98.75 },
+            "West Bengal": { "Petrol": 105.84, "Diesel": 92.41, "CNG": 0 }, "Andaman and Nicobar Islands (UT)": { "Petrol": 82.46, "Diesel": 78.05, "CNG": 0 }, "Chandigarh (UT)": { "Petrol": 94.30, "Diesel": 82.45, "CNG": 92.00 },
+            "Dadra and Nagar Haveli": { "Petrol": 92.74, "Diesel": 88.23, "CNG": 77.77 }, "Daman and Diu": { "Petrol": 94.63, "Diesel": 90.30, "CNG": 77.77 }, "Delhi": { "Petrol": 94.77, "Diesel": 87.67, "CNG": 77.09 },
+            "Jammu and Kashmir": { "Petrol": 98.87, "Diesel": 85.46, "CNG": 94.40 }, "Ladakh": { "Petrol": 104.09, "Diesel": 91.68, "CNG": 0 }, "Lakshadweep": { "Petrol": 100.75, "Diesel": 0, "CNG": 0 }, "Puducherry": { "Petrol": 95.78, "Diesel": 85.86, "CNG": 78.00 }
         };
 
-        const dgCapacities = { "40":40, "50":50, "75":75, "80":80, "100":100, "150":150, "160":160, "180":180, "200":200, "250":250, "350":350 };
-
-        // AUTH
-        function toggleAuth(mode) {
-            document.getElementById('loginForm').classList.toggle('hidden', mode==='signup');
-            document.getElementById('signupForm').classList.toggle('hidden', mode==='login');
-        }
+        // AUTH & INIT
+        function toggleAuth(mode) { document.getElementById('loginForm').classList.toggle('hidden',mode==='signup'); document.getElementById('signupForm').classList.toggle('hidden',mode==='login'); }
         async function handleLogin() {
-            const e = document.getElementById('logEmail').value;
-            const p = document.getElementById('logPass').value;
-            if(!e || !p) return alert('Enter credentials');
-            document.getElementById('loginBtn').innerText = 'Verifying...';
-            try {
-                const res = await apiCall({ action:'login', email:e, password:p });
-                if(res.status === 'success') { currentUser = res.user; initApp(); } 
-                else alert(res.message);
-            } catch(e) { alert('Connection Error'); }
-            document.getElementById('loginBtn').innerText = 'LOGIN DASHBOARD';
+            const e=document.getElementById('logEmail').value, p=document.getElementById('logPass').value;
+            if(!e||!p) return alert('Enter credentials');
+            document.getElementById('loginBtn').innerText='Verifying...';
+            try{ const r = await apiCall({action:'login',email:e,password:p}); if(r.status==='success'){ currentUser=r.user; initApp(); } else alert(r.message); } catch(e){ alert('Error'); }
+            document.getElementById('loginBtn').innerText='LOGIN DASHBOARD';
         }
         async function handleSignup() {
-            const n = document.getElementById('signName').value, e = document.getElementById('signEmail').value, p = document.getElementById('signPass').value;
-            const res = await apiCall({ action:'signup', name:n, email:e, password:p });
-            if(res.status === 'success') { alert(res.message); toggleAuth('login'); } else alert(res.message);
+            const n=document.getElementById('signName').value, e=document.getElementById('signEmail').value, p=document.getElementById('signPass').value;
+            const r = await apiCall({action:'signup',name:n,email:e,password:p});
+            if(r.status==='success'){ alert(r.message); toggleAuth('login'); } else alert(r.message);
         }
         function logout() { location.reload(); }
+        function toggleTheme() { document.body.classList.toggle('dark-mode'); }
 
         function initApp() {
-            document.getElementById('authSection').classList.add('hidden');
-            document.getElementById('appSection').classList.remove('hidden');
-            if(currentUser.role === 'Super Admin') {
-                document.getElementById('adminMobile').classList.remove('hidden');
-                loadUsers();
-            }
-            populateFuelDropdown();
-            loadFleetData();
-            loadReportData();
-            
-            // Initial Histories
-            fetchLastMeter();
-            loadMeterHistory();
-            loadFuelHistory();
+            document.getElementById('authSection').classList.add('hidden'); document.getElementById('appSection').classList.remove('hidden');
+            document.getElementById('dashUserName').innerText = currentUser.name.split(' ')[0];
+            if(currentUser.role==='Super Admin') document.getElementById('adminMobile').classList.remove('hidden');
+            populateFuelDropdown(); loadFleetData(); fetchLastMeter(); loadReportData(); loadFuelHistory(); loadMeterHistory();
         }
 
+        // NAVIGATION
         function switchView(view) {
-            document.querySelectorAll('.view-pane').forEach(el => el.classList.add('hidden'));
-            document.getElementById('view'+view).classList.remove('hidden');
-            document.querySelectorAll('.nav-item').forEach(el => el.classList.remove('active'));
-            // Logic to highlight nav
-            const map = { 'Report':0, 'Meter':1, 'Fuel':2, 'Admin':3 };
-            if(map[view] !== undefined) document.querySelectorAll('.nav-item')[map[view]].classList.add('active');
+            document.querySelectorAll('.view-pane').forEach(el=>el.classList.add('hidden')); document.getElementById('view'+view).classList.remove('hidden');
+            document.querySelectorAll('.nav-item').forEach(el=>el.classList.remove('active'));
+            const map = {Report:0, Meter:1, Fuel:2, Vehicle:3, Tools:4, Admin:5};
+            if(document.querySelectorAll('.nav-item')[map[view]]) document.querySelectorAll('.nav-item')[map[view]].classList.add('active');
+        }
+        function switchVehicleSub(sub) {
+            document.getElementById('vOps').classList.add('hidden'); document.getElementById('vList').classList.add('hidden'); document.getElementById('vLogs').classList.add('hidden');
+            document.querySelectorAll('.sub-tab').forEach(el=>el.classList.remove('active'));
+            document.getElementById('v'+sub).classList.remove('hidden'); document.getElementById('vSub'+sub).classList.add('active');
+            if(sub==='List') renderFleetList(); if(sub==='Logs') loadActivityLog();
         }
 
-        // --- DASHBOARD REPORT ---
+        // DASHBOARD REPORT & HISTORY
         async function loadReportData() {
-            const [refuels, incomes, expenses] = await Promise.all([
-                apiCall({action:'fetch', sheet:'refuel'}),
-                apiCall({action:'fetch', sheet:'income'}),
-                apiCall({action:'fetch', sheet:'expense'})
-            ]);
-
-            let totalExp = 0, totalInc = 0, history = [];
+            const [ref, serv, exp, inc] = await Promise.all([apiCall({action:'fetch',sheet:'refuel'}), apiCall({action:'fetch',sheet:'service'}), apiCall({action:'fetch',sheet:'expense'}), apiCall({action:'fetch',sheet:'income'})]);
+            let tExp=0, tInc=0, hist=[];
+            if(ref.data) ref.data.forEach(r=>{ tExp+=parseFloat(r.Cost||0); hist.push({t:'Refuel', d:r.Plate, a:r.Cost, c:'red'}); });
+            if(serv.data) serv.data.forEach(r=>{ tExp+=parseFloat(r.Notes||0); hist.push({t:'Service', d:r.Plate, a:r.Notes, c:'red'}); });
+            if(exp.data) exp.data.forEach(r=>{ tExp+=parseFloat(r.Notes||0); hist.push({t:'Expense', d:r.Type, a:r.Notes, c:'red'}); });
+            if(inc.data) inc.data.forEach(r=>{ tInc+=parseFloat(r.Amount||0); hist.push({t:'Income', d:r.Type, a:r.Amount, c:'emerald'}); });
+            document.getElementById('dashExpense').innerText=tExp.toFixed(0); document.getElementById('dashIncome').innerText=tInc.toFixed(0);
             
-            if(refuels.data) refuels.data.forEach(r => { totalExp += parseFloat(r.Cost||0); history.push({t:'Refuel', v:r.Cost, d:r.Date}); });
-            if(expenses.data) expenses.data.forEach(r => { totalExp += parseFloat(r.Notes||0); history.push({t:'Expense', v:r.Notes, d:r.Date}); });
-            if(incomes.data) incomes.data.forEach(r => { totalInc += parseFloat(r.Amount||0); history.push({t:'Income', v:r.Amount, d:r.Date, isInc:true}); });
-
-            document.getElementById('dashExpense').innerText = totalExp.toFixed(0);
-            document.getElementById('dashIncome').innerText = totalInc.toFixed(0);
-
-            history.sort((a,b) => new Date(b.d) - new Date(a.d));
-            document.getElementById('dashHistoryList').innerHTML = history.slice(0,5).map(h => 
-                `<div class="flex justify-between items-center p-3 border-b border-slate-100 last:border-0">
-                    <div><p class="text-xs font-bold text-slate-700">${h.t}</p><p class="text-[10px] text-slate-400">${h.d.substring(0,10)}</p></div>
-                    <span class="text-sm font-bold ${h.isInc?'text-emerald-500':'text-red-500'}">${h.isInc?'+':'-'}₹${h.v}</span>
-                </div>`
-            ).join('');
+            // Combined History List
+            const list = document.getElementById('dashHistoryList');
+            list.innerHTML = hist.slice(0,10).map(h=>`<div class="flex justify-between items-center py-3 border-b border-gray-100 last:border-0"><div><p class="text-xs font-bold text-main">${h.t}</p><p class="text-[10px] text-muted">${h.d}</p></div><span class="text-sm font-bold text-${h.c}-500">₹${h.a}</span></div>`).join('') || '<p class="text-center py-4 text-xs">No records</p>';
         }
 
-        // --- METER LOGIC ---
-        ['dgModel','dgCustom','dgHeight','dgReading'].forEach(id=>document.getElementById(id).addEventListener('input', calcMeter));
-        async function fetchLastMeter() {
-            const res = await apiCall({ action:'fetch', sheet:'meter' });
-            if(res.status === 'success' && res.data.length > 0) document.getElementById('dgHeight').value = res.data[0].Height || 7.0;
-        }
+        // METER
+        ['dgModel','dgCustom','dgHeight','dgReading'].forEach(id=>document.getElementById(id).addEventListener('input',calcMeter));
+        async function fetchLastMeter() { const r=await apiCall({action:'fetch',sheet:'meter'}); if(r.data&&r.data.length) document.getElementById('dgHeight').value=r.data[0].Height||7.0; }
         function calcMeter() {
-            const h = parseFloat(document.getElementById('dgHeight').value)||0;
-            const r = parseFloat(document.getElementById('dgReading').value)||0;
-            let cap = document.getElementById('dgModel').value == -1 ? parseFloat(document.getElementById('dgCustom').value)||0 : parseFloat(document.getElementById('dgModel').value)||0;
-            if(h>0) {
-                const pct = (r/h)*100;
-                document.getElementById('resPercent').innerText = pct.toFixed(1)+'%';
-                document.getElementById('resQty').innerText = ((pct/100)*cap).toFixed(1)+' L';
-            }
+            const h=parseFloat(document.getElementById('dgHeight').value)||0, r=parseFloat(document.getElementById('dgReading').value)||0;
+            let cap = document.getElementById('dgModel').value==-1?parseFloat(document.getElementById('dgCustom').value)||0 : parseFloat(document.getElementById('dgModel').value)||0;
+            if(h>0){ const p=(r/h)*100; document.getElementById('resPercent').innerText=p.toFixed(1)+'%'; document.getElementById('resQty').innerText=((p/100)*cap).toFixed(1)+' L'; document.getElementById('progressBar').style.width=p+'%'; }
         }
         async function saveMeter() {
-            const p = { action:'meter_reading', data:[new Date(), document.getElementById('dgModel').value, 0, document.getElementById('dgHeight').value, document.getElementById('dgReading').value, document.getElementById('resQty').innerText, document.getElementById('resPercent').innerText] };
-            if(await apiCall(p)) { alert('Saved!'); loadMeterHistory(); }
+            const p={action:'meter_reading',data:[new Date(),document.getElementById('dgModel').value,0,document.getElementById('dgHeight').value,document.getElementById('dgReading').value,document.getElementById('resQty').innerText,document.getElementById('resPercent').innerText]};
+            if(await apiCall(p)) { alert('Saved'); loadMeterHistory(); }
         }
         async function loadMeterHistory() {
-            const res = await apiCall({ action:'fetch', sheet:'meter' });
-            if(res.status === 'success') {
-                document.getElementById('meterHistoryList').innerHTML = res.data.slice(0,5).map(r => 
-                    `<div class="history-item">
-                        <div><span class="text-[10px] text-slate-400 block">${r.Date.substring(0,10)}</span><span class="text-xs font-bold text-slate-700">${r['DG Model']}</span></div>
-                        <div class="text-right"><span class="text-xs font-mono font-bold text-indigo-500">${r.Percentage}</span><br><span class="text-[9px] text-slate-500">${r.Quantity}</span></div>
-                    </div>`
-                ).join('');
-            }
+            const r=await apiCall({action:'fetch',sheet:'meter'});
+            if(r.data) document.getElementById('meterHistoryList').innerHTML=r.data.slice(0,3).map(x=>`<div class="flex justify-between p-2 bg-gray-50 rounded mb-1 text-xs"><span>${x.Date.substring(0,10)}</span><span class="font-bold">${x.Quantity}</span></div>`).join('');
         }
 
-        // --- FUEL LOGIC ---
-        function populateFuelDropdown() {
-            const s = document.getElementById('fuelState');
-            s.innerHTML='<option>Select...</option>';
-            Object.keys(HARDCODED_FUEL_PRICES).sort().forEach(k => s.innerHTML += `<option value="${k}">${k}</option>`);
-        }
-        function updateFuelDisplay() {
-            const st = document.getElementById('fuelState').value;
-            if(HARDCODED_FUEL_PRICES[st]) {
-                document.getElementById('pricePetrol').innerText = '₹'+HARDCODED_FUEL_PRICES[st].Petrol;
-                document.getElementById('priceDiesel').innerText = '₹'+HARDCODED_FUEL_PRICES[st].Diesel;
-                document.getElementById('priceCNG').innerText = '₹'+HARDCODED_FUEL_PRICES[st].CNG;
-            }
-        }
-        let calcMode = 'cost';
-        function setCalcMode(m) { calcMode = m; runFuelCalc(); }
+        // FUEL
+        function populateFuelDropdown() { const s=document.getElementById('fuelState'); s.innerHTML='<option>Select...</option>'; Object.keys(HARDCODED_FUEL_PRICES).sort().forEach(k=>s.innerHTML+=`<option value="${k}">${k}</option>`); }
+        function updateFuelDisplay() { const v=HARDCODED_FUEL_PRICES[document.getElementById('fuelState').value]; if(v){ document.getElementById('pricePetrol').innerText='₹'+v.Petrol; document.getElementById('priceDiesel').innerText='₹'+v.Diesel; document.getElementById('priceCNG').innerText='₹'+v.CNG; } }
+        let calcMode='cost'; function setCalcMode(m){calcMode=m; runFuelCalc();}
         function runFuelCalc() {
-            const type = document.getElementById('calcFuelType').value;
-            const val = parseFloat(document.getElementById('calcInput').value)||0;
-            const price = parseFloat(document.getElementById('price'+type).innerText.replace('₹',''))||0;
-            const res = document.getElementById('calcResult');
-            if(calcMode === 'cost') res.innerText = '₹ ' + (val * price).toFixed(2); else res.innerText = (val / price).toFixed(2) + ' L';
+            const t=document.getElementById('calcFuelType').value, v=parseFloat(document.getElementById('calcInput').value)||0, p=parseFloat(document.getElementById('price'+t).innerText.replace('₹',''))||0;
+            document.getElementById('calcResult').innerText = calcMode==='cost' ? '₹ '+(v*p).toFixed(2) : (v/p).toFixed(2)+' L';
         }
-        
         async function saveFuelCalc() {
-            const v = document.getElementById('calcVehicle').value;
-            if(!v) return alert('Select Vehicle');
-            const type = document.getElementById('calcFuelType').value;
-            const val = parseFloat(document.getElementById('calcInput').value)||0;
-            const price = parseFloat(document.getElementById('price'+type).innerText.replace('₹',''))||0;
-            
-            let cost=0, qty=0;
-            if(calcMode === 'cost') { cost = val*price; qty = val; } else { qty = val/price; cost = val; }
-            const data = [new Date(), v, 0, type, price, qty.toFixed(2), cost.toFixed(2), 'Calc', 'Self'];
-            if(await apiCall({ action:'refuel', data:data })) { alert('Saved!'); loadFuelHistory(); loadReportData(); }
+            const v=document.getElementById('calcVehicle').value; if(!v) return alert('Select vehicle');
+            const t=document.getElementById('calcFuelType').value, val=parseFloat(document.getElementById('calcInput').value)||0, p=parseFloat(document.getElementById('price'+t).innerText.replace('₹',''))||0;
+            let c=0,q=0; if(calcMode==='cost'){c=val*p;q=val} else{q=val/p;c=val}
+            if(await apiCall({action:'refuel',data:[new Date(),v,0,t,p,q.toFixed(2),c.toFixed(2),'Calc','Self']})) { alert('Saved'); loadFuelHistory(); loadReportData(); }
         }
-
         async function loadFuelHistory() {
-            const res = await apiCall({ action:'fetch', sheet:'refuel' });
-            if(res.status === 'success') {
-                document.getElementById('fuelHistoryList').innerHTML = res.data.slice(0,5).map(r => 
-                    `<div class="history-item" style="border-left-color: #22c55e;">
-                        <div><span class="text-[10px] text-slate-400 block">${r.Date.substring(0,10)}</span><span class="text-xs font-bold text-slate-700">${r.Plate}</span></div>
-                        <div class="text-right"><span class="text-xs font-mono font-bold text-green-600">₹${r.Cost}</span></div>
-                    </div>`
-                ).join('');
-            }
+            const r=await apiCall({action:'fetch',sheet:'refuel'});
+            if(r.data) document.getElementById('fuelHistoryList').innerHTML=r.data.slice(0,3).map(x=>`<div class="flex justify-between p-2 bg-gray-50 rounded mb-1 text-xs"><span>${x.Plate}</span><span class="text-green-600 font-bold">₹${x.Cost}</span></div>`).join('');
         }
 
-        // --- ADMIN & OTHERS ---
-        async function loadFleetData() {
-            const res = await apiCall({ action:'fetch', sheet:'register' });
-            if(res.status === 'success') {
-                const fSel = document.getElementById('calcVehicle');
-                fSel.innerHTML = '<option value="">Select Vehicle...</option>';
-                res.data.forEach(v => fSel.innerHTML += `<option value="${v.Plate}">${v.Plate}</option>`);
+        // VEHICLE / MODAL
+        async function loadFleetData() { const r=await apiCall({action:'fetch',sheet:'register'}); if(r.data) { fleetData=r.data; const s=document.getElementById('calcVehicle'); s.innerHTML='<option value="">Select...</option>'; fleetData.forEach(f=>s.innerHTML+=`<option value="${f.Plate}">${f.Plate}</option>`); } }
+        function openModal(mode) { currentModalMode=mode; document.getElementById('dataModal').classList.remove('hidden'); renderModal(mode); }
+        function closeModal() { document.getElementById('dataModal').classList.add('hidden'); }
+        function renderModal(mode) {
+            let h = ''; const c=document.getElementById('modalContent'); document.getElementById('modalTitle').innerText=mode.toUpperCase();
+            if(mode==='create_user') h=`<input id="uName" placeholder="Name" class="input-ui"><input id="uEmail" placeholder="Email" class="input-ui"><input id="uPass" placeholder="Pass" class="input-ui"><select id="uRole" class="input-ui"><option>User</option><option>Admin</option></select>`;
+            else {
+                if(mode!=='register') { h+=`<select id="inpPlate" class="input-ui mb-3"><option>Select Vehicle...</option>`; fleetData.forEach(v=>h+=`<option value="${v.Plate}">${v['Vehicle Name']} (${v.Plate})</option>`); h+=`</select>`; }
+                if(mode==='register') h+=`<input id="inpName" placeholder="Vehicle Name" class="input-ui"><input id="inpPlate" placeholder="Plate Number" class="input-ui uppercase"><input id="inpModel" placeholder="Model" class="input-ui"><select id="inpFuel" class="input-ui"><option>Diesel</option><option>Petrol</option></select>`;
+                else if(mode==='refuel') h+=`<input type="number" id="inpOdo" placeholder="Odometer" class="input-ui"><input type="number" id="inpPrice" placeholder="Price/L" class="input-ui"><input type="number" id="inpQty" placeholder="Quantity" class="input-ui"><input type="number" id="inpCost" placeholder="Cost" class="input-ui">`;
+                else if(mode==='income') h+=`<input type="number" id="inpAmount" placeholder="Amount" class="input-ui"><input id="inpType" placeholder="Type" class="input-ui"><input id="inpNotes" placeholder="Notes" class="input-ui">`;
+                else if(mode==='route') h+=`<input id="inpOrigin" placeholder="Origin" class="input-ui"><input id="inpDest" placeholder="Dest" class="input-ui"><input type="number" id="inpStartKM" placeholder="Start KM" class="input-ui"><input type="number" id="inpEndKM" placeholder="End KM" class="input-ui">`;
+                else h+=`<input type="number" id="inpOdo" placeholder="Odometer" class="input-ui"><input id="inpType" placeholder="Type" class="input-ui"><input id="inpNotes" placeholder="Cost/Notes" class="input-ui">`;
+                h+=`<input type="date" id="inpDate" class="input-ui mt-2" value="${new Date().toISOString().split('T')[0]}">`;
             }
+            c.innerHTML=h;
         }
-        async function submitAdminUser() {
-            const u = { action:'admin_create_user', name:document.getElementById('uName').value, email:document.getElementById('uEmail').value, password:document.getElementById('uPass').value, role:document.getElementById('uRole').value };
-            if(await apiCall(u)) { alert('Created'); loadUsers(); }
-        }
-        async function loadUsers() {
-            const res = await fetch(`${API_URL}?action=fetch_users`);
-            const json = await res.json();
-            if(json.status==='success') {
-                document.getElementById('adminUserList').innerHTML = json.data.map(u => `<div class="p-2 border-b border-gray-100 flex justify-between text-slate-500 text-xs"><span>${u.name}</span><span class="text-[9px] bg-slate-100 px-2 py-1 rounded-full">${u.role}</span></div>`).join('');
+        async function submitData() {
+            document.getElementById('saveBtn').innerText='Saving...';
+            let data=[]; const d=document.getElementById('inpDate')?document.getElementById('inpDate').value:new Date(), p=document.getElementById('inpPlate')?document.getElementById('inpPlate').value:'';
+            if(currentModalMode==='create_user') {
+                await apiCall({action:'admin_create_user',name:document.getElementById('uName').value,email:document.getElementById('uEmail').value,password:document.getElementById('uPass').value,role:document.getElementById('uRole').value});
+                alert('Created'); loadUsers(); closeModal(); return;
             }
+            // Simplified Mapping for brevity, assumes correct index order from previous logic
+            if(currentModalMode==='register') data=[d,document.getElementById('inpName').value,document.getElementById('inpPlate').value,document.getElementById('inpModel').value,'',document.getElementById('inpFuel').value,'','','',''];
+            else if(currentModalMode==='refuel') data=[d,p,document.getElementById('inpOdo').value,'',document.getElementById('inpPrice').value,document.getElementById('inpQty').value,document.getElementById('inpCost').value,'',''];
+            else if(currentModalMode==='income') data=[d,p,0,document.getElementById('inpAmount').value,document.getElementById('inpType').value,currentUser.name,document.getElementById('inpNotes').value];
+            else if(currentModalMode==='route') data=[d,p,document.getElementById('inpOrigin').value,'',document.getElementById('inpStartKM').value,document.getElementById('inpDest').value,'',document.getElementById('inpEndKM').value,'','',''];
+            else data=[d,p,document.getElementById('inpOdo').value,document.getElementById('inpType').value,'','','',document.getElementById('inpNotes').value];
+
+            if(await apiCall({action:currentModalMode,data:data})) { alert('Saved'); closeModal(); loadReportData(); if(currentModalMode==='register') loadFleetData(); }
+            document.getElementById('saveBtn').innerText='SUBMIT';
         }
-        async function apiCall(body) {
-            try { const r = await fetch(API_URL, { method:'POST', body:JSON.stringify(body) }); return await r.json(); } catch(e){ return {status:'error', message:e}; }
+
+        // RTO SEARCH
+        function searchVehicle() {
+            const q = document.getElementById('rtoSearchInput').value.toUpperCase().trim();
+            const v = fleetData.find(x => x.Plate === q || x['Vehicle Name'].toUpperCase() === q);
+            if(v) { document.getElementById('rtoPlate').innerText=v.Plate; document.getElementById('rtoOwner').innerText=currentUser.name; document.getElementById('rtoModel').innerText=v.Model; document.getElementById('rtoResult').classList.remove('hidden'); document.getElementById('rtoExternal').classList.add('hidden'); }
+            else { document.getElementById('rtoResult').classList.add('hidden'); document.getElementById('rtoExternal').classList.remove('hidden'); }
         }
+
+        // ADMIN
+        async function loadUsers() { const r=await apiCall({action:'fetch_users'}); if(r.data) document.getElementById('adminUserList').innerHTML=r.data.map(u=>`<div class="p-2 border-b text-xs flex justify-between"><span>${u.name}</span><span class="bg-gray-100 px-1 rounded">${u.role}</span></div>`).join(''); }
+        async function loadActivityLog() { const r=await apiCall({action:'fetch',sheet:'refuel'}); if(r.data) document.getElementById('vehicleLogContainer').innerHTML=r.data.slice(0,5).map(x=>`<div class="p-2 border-b text-xs flex justify-between"><span>${x.Plate}</span><span class="text-green-600">₹${x.Cost}</span></div>`).join(''); }
+        function renderFleetList() { document.getElementById('fleetListContainer').innerHTML = fleetData.map(v=>`<div class="p-2 border-b text-xs flex justify-between"><span>${v.Plate}</span><span class="text-indigo-600">${v.Fuel}</span></div>`).join(''); }
+
+        async function apiCall(body) { try{const r=await fetch('https://script.google.com/macros/s/AKfycbwuZevWQeFNwy41e-z40ymvbsyo8bPigXr4z2270uTdpeRm7d2KH2LV7i41y1qi-N2k-g/exec',{method:'POST',body:JSON.stringify(body)});return await r.json();}catch(e){return{status:'error',message:e};} }
     </script>
 </body>
 </html>
