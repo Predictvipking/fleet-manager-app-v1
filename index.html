@@ -5,173 +5,164 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Utility Master Pro</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@500;600;700&family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/js/all.min.js"></script>
     <style>
-        /* --- THEME --- */
+        /* --- THEME (Lute Light) --- */
         :root {
-            --bg-dark: #0b1121;
-            --bg-card: #151e32;
-            --primary: #f59e0b;
-            --text-main: #e2e8f0;
+            --bg-body: #f3f6fc;
+            --bg-card: #ffffff;
+            --primary: #4f46e5; 
+            --text-main: #1e293b;
             --text-muted: #64748b;
-            --border-color: #1e293b;
+            --border: #e2e8f0;
         }
         
-        body { font-family: 'Inter', sans-serif; background-color: var(--bg-dark); color: var(--text-main); -webkit-tap-highlight-color: transparent; user-select: none; }
-        .font-tech { font-family: 'Rajdhani', sans-serif; }
+        body { font-family: 'Plus Jakarta Sans', sans-serif; background-color: var(--bg-body); color: var(--text-main); -webkit-tap-highlight-color: transparent; user-select: none; }
 
-        /* Login Background */
-        .login-bg {
-            background: linear-gradient(rgba(11, 17, 33, 0.95), rgba(11, 17, 33, 0.98)), 
-                        url('https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?q=80&w=2070&auto=format&fit=crop');
-            background-size: cover; background-position: center;
+        /* Login */
+        .login-bg { background: linear-gradient(135deg, #fdfbfb 0%, #ebedee 100%); }
+
+        /* UI Elements */
+        .card-ui {
+            background: var(--bg-card); border: 1px solid var(--border);
+            border-radius: 16px; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05);
+            padding: 1.25rem; margin-bottom: 1rem;
         }
 
-        /* Elements */
-        .card-dark {
-            background: var(--bg-card); border: 1px solid var(--border-color);
-            border-radius: 12px; box-shadow: 0 4px 15px rgba(0,0,0,0.4);
-            padding: 1rem;
+        .input-ui {
+            width: 100%; padding: 12px; background: #f8fafc; 
+            border: 1px solid var(--border); border-radius: 10px;
+            color: var(--text-main); font-weight: 500; transition: 0.3s;
         }
-
-        .input-dark {
-            width: 100%; padding: 10px 12px; background: #0b1121; 
-            border: 1px solid var(--border-color); border-radius: 8px;
-            color: white; font-size: 0.85rem; transition: 0.3s;
-        }
-        .input-dark:focus { border-color: var(--primary); outline: none; box-shadow: 0 0 0 1px var(--primary); }
+        .input-ui:focus { border-color: var(--primary); outline: none; box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.1); }
 
         .btn-primary {
-            background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%);
-            color: white; font-weight: 700; padding: 12px; border-radius: 10px;
-            text-transform: uppercase; letter-spacing: 1px; font-family: 'Rajdhani', sans-serif;
-            transition: 0.2s; width: 100%; font-size: 0.9rem;
+            background: var(--primary); color: white; padding: 12px; 
+            border-radius: 10px; font-weight: 700; letter-spacing: 0.5px;
+            width: 100%; box-shadow: 0 4px 6px rgba(79, 70, 229, 0.2);
         }
-        .btn-primary:active { transform: scale(0.96); opacity: 0.9; }
+        .btn-primary:active { transform: scale(0.96); }
 
-        /* Action Buttons */
-        .action-btn {
-            display: flex; flex-direction: column; align-items: center; justify-content: center;
-            background: var(--bg-card); padding: 12px; border-radius: 12px;
-            border: 1px solid var(--border-color); transition: all 0.2s; cursor: pointer;
+        /* History Items */
+        .history-item {
+            display: flex; justify-content: space-between; align-items: center;
+            background: #fff; padding: 10px; border-radius: 8px; margin-bottom: 8px;
+            border: 1px solid #e2e8f0; border-left: 4px solid var(--primary);
         }
-        .action-btn:active { transform: scale(0.95); background: #0f172a; }
-        .action-btn i { font-size: 1.4rem; margin-bottom: 4px; }
 
         /* Bottom Nav */
         .bottom-nav {
-            background: rgba(15, 23, 42, 0.98); backdrop-filter: blur(12px);
-            border-top: 1px solid #1e293b;
-            height: 70px;
-            display: flex; align-items: center; justify-content: space-around;
-            padding-bottom: 5px; box-shadow: 0 -5px 20px rgba(0,0,0,0.5);
+            background: rgba(255, 255, 255, 0.95); backdrop-filter: blur(10px);
+            border-top: 1px solid var(--border);
+            height: 70px; display: flex; align-items: center; justify-content: space-around;
+            padding-bottom: 5px; position: fixed; bottom: 0; width: 100%; z-index: 50;
         }
         .nav-item {
-            display: flex; align-items: center; justify-content: center;
-            color: #475569; transition: 0.3s;
-            width: 50px; height: 50px; border-radius: 12px;
+            display: flex; flex-direction: column; align-items: center; 
+            color: #94a3b8; width: 50px; transition: 0.3s;
         }
-        .nav-item i { font-size: 1.8rem; transition: 0.3s; }
-        
-        .nav-item.active { background: rgba(255,255,255,0.05); }
-        .nav-item.active i { transform: scale(1.1); }
-        
-        /* Active Colors */
-        .meter-active.active i { color: #f59e0b; text-shadow: 0 0 10px rgba(245, 158, 11, 0.6); }
-        .fuel-active.active i { color: #3b82f6; text-shadow: 0 0 10px rgba(59, 130, 246, 0.6); }
-        .vehicle-active.active i { color: #e2e8f0; text-shadow: 0 0 10px rgba(226, 232, 240, 0.6); }
-        .tools-active.active i { color: #a855f7; text-shadow: 0 0 10px rgba(168, 85, 247, 0.6); }
-        .admin-active.active i { color: #ef4444; text-shadow: 0 0 10px rgba(239, 68, 68, 0.6); }
-
-        /* Sub-tabs */
-        .sub-tab {
-            padding: 8px; font-size: 0.75rem; font-weight: 600; color: var(--text-muted);
-            border-bottom: 2px solid transparent; cursor: pointer; text-align: center; flex: 1;
-        }
-        .sub-tab.active { color: var(--primary); border-bottom-color: var(--primary); background: rgba(245, 158, 11, 0.05); }
-
-        /* History List Item */
-        .history-item {
-            display: flex; justify-content: space-between; align-items: center;
-            background: #0f172a; padding: 10px; border-radius: 8px; margin-bottom: 8px;
-            border-left: 3px solid #334155; transition: 0.2s;
-        }
-        .history-item:hover { border-left-color: var(--primary); }
+        .nav-item i { font-size: 1.6rem; margin-bottom: 2px; }
+        .nav-item.active { color: var(--primary); transform: translateY(-5px); }
         
         .fade-in { animation: fadeIn 0.4s ease-out forwards; }
         @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
         ::-webkit-scrollbar { width: 0px; }
     </style>
 </head>
-<body class="h-screen flex flex-col overflow-hidden bg-[#0b1121]">
+<body class="h-screen flex flex-col overflow-hidden">
 
     <!-- 1. LOGIN SCREEN -->
     <div id="authSection" class="fixed inset-0 z-50 flex items-center justify-center p-6 login-bg">
-        <div class="card-dark w-full max-w-sm p-8 fade-in relative overflow-hidden backdrop-blur-xl bg-opacity-80">
-            <div class="text-center mb-8 relative z-10">
-                <div class="w-20 h-20 border-2 border-amber-500 rounded-2xl flex items-center justify-center mx-auto mb-4 shadow-[0_0_25px_rgba(245,158,11,0.3)]">
-                    <i class="fa-solid fa-bolt text-5xl text-amber-500"></i>
+        <div class="bg-white w-full max-w-sm p-8 rounded-3xl shadow-xl fade-in border border-white">
+            <div class="text-center mb-8">
+                <div class="w-16 h-16 bg-indigo-50 rounded-2xl flex items-center justify-center mx-auto mb-4 text-indigo-600">
+                    <i class="fa-solid fa-bolt text-3xl"></i>
                 </div>
-                <h1 class="text-3xl font-bold text-white font-tech tracking-wider uppercase">PowerTrack <span class="text-amber-500">PRO</span></h1>
-                <p class="text-slate-400 text-xs mt-1 tracking-[0.2em]">FLEET INTELLIGENCE</p>
+                <h1 class="text-2xl font-bold text-slate-800">Utility Master</h1>
+                <p class="text-xs text-slate-500 font-bold uppercase tracking-widest">Enterprise Edition</p>
             </div>
 
-            <div id="loginForm" class="space-y-5 relative z-10">
-                <div class="relative">
-                    <i class="fa-solid fa-envelope absolute left-4 top-4 text-slate-500"></i>
-                    <input type="email" id="logEmail" class="input-dark pl-12" placeholder="USER ID">
-                </div>
-                <div class="relative">
-                    <i class="fa-solid fa-lock absolute left-4 top-4 text-slate-500"></i>
-                    <input type="password" id="logPass" class="input-dark pl-12" placeholder="PASSWORD">
-                </div>
-                <button onclick="handleLogin()" id="loginBtn" class="btn-primary shadow-[0_4px_15px_rgba(245,158,11,0.4)]">INITIALIZE SYSTEM</button>
-                <p class="text-center text-slate-500 text-xs mt-4">New System? <span class="text-amber-500 cursor-pointer hover:underline font-bold" onclick="toggleAuth('signup')">REQUEST ACCESS</span></p>
+            <div id="loginForm" class="space-y-4">
+                <input type="email" id="logEmail" class="input-ui" placeholder="User ID">
+                <input type="password" id="logPass" class="input-ui" placeholder="Password">
+                <button onclick="handleLogin()" id="loginBtn" class="btn-primary">LOGIN DASHBOARD</button>
+                <p class="text-center text-xs text-slate-400 mt-4 cursor-pointer" onclick="toggleAuth('signup')">Create Account</p>
             </div>
 
-            <div id="signupForm" class="space-y-5 hidden relative z-10">
-                <input type="text" id="signName" class="input-dark" placeholder="FULL NAME">
-                <input type="email" id="signEmail" class="input-dark" placeholder="EMAIL ADDRESS">
-                <input type="password" id="signPass" class="input-dark" placeholder="SET PASSWORD">
-                <button onclick="handleSignup()" id="signupBtn" class="btn-primary bg-slate-700 border border-slate-600">SUBMIT REQUEST</button>
-                <p class="text-center text-slate-500 text-xs mt-4 cursor-pointer hover:text-white" onclick="toggleAuth('login')">← Back to Login</p>
+            <div id="signupForm" class="space-y-4 hidden">
+                <input type="text" id="signName" class="input-ui" placeholder="Full Name">
+                <input type="email" id="signEmail" class="input-ui" placeholder="Email Address">
+                <input type="password" id="signPass" class="input-ui" placeholder="Set Password">
+                <button onclick="handleSignup()" id="signupBtn" class="btn-primary bg-slate-800">SUBMIT REQUEST</button>
+                <p class="text-center text-xs text-slate-400 mt-4 cursor-pointer" onclick="toggleAuth('login')">← Back to Login</p>
             </div>
         </div>
     </div>
 
-    <!-- 2. MAIN APP DASHBOARD -->
+    <!-- 2. MAIN APP -->
     <div id="appSection" class="hidden h-full flex flex-col">
         
         <!-- Header -->
-        <header class="bg-[#1e293b]/80 backdrop-blur-md px-5 py-4 shadow-lg flex justify-between items-center z-20 sticky top-0 border-b border-slate-700">
+        <header class="bg-white px-5 py-4 shadow-sm flex justify-between items-center z-20 sticky top-0 border-b border-slate-100">
             <div class="flex items-center gap-3">
-                <div class="w-10 h-10 bg-amber-500/10 border border-amber-500/50 rounded-lg flex items-center justify-center text-amber-500 font-bold shadow-[0_0_10px_rgba(245,158,11,0.2)]"><i class="fa-solid fa-bolt text-xl"></i></div>
+                <div class="w-9 h-9 bg-indigo-50 rounded-lg flex items-center justify-center text-indigo-600 font-bold">
+                    <i class="fa-solid fa-layer-group"></i>
+                </div>
                 <div>
-                    <h2 class="text-lg font-bold text-white font-tech tracking-widest leading-none">PowerTrack</h2>
-                    <div class="flex items-center gap-1.5 mt-1">
-                        <div class="w-1.5 h-1.5 bg-green-500 rounded-full animate-pulse shadow-[0_0_5px_#22c55e]"></div>
-                        <p class="text-[10px] text-slate-400 font-mono tracking-wide" id="userBadge">ONLINE</p>
-                    </div>
+                    <h2 class="text-lg font-bold text-slate-800 leading-none">Dashboard</h2>
+                    <p class="text-[10px] text-emerald-600 font-bold mt-1" id="userBadge">● ONLINE</p>
                 </div>
             </div>
-            <button onclick="logout()" class="w-10 h-10 rounded-full bg-red-500/10 text-red-500 hover:bg-red-500 hover:text-white transition flex items-center justify-center border border-red-500/20">
-                <i class="fa-solid fa-power-off text-lg"></i>
+            <button onclick="logout()" class="w-9 h-9 rounded-full bg-red-50 text-red-500 flex items-center justify-center">
+                <i class="fa-solid fa-power-off"></i>
             </button>
         </header>
 
         <!-- Main Content -->
-        <main class="flex-1 overflow-y-auto p-4 pb-28 scroll-smooth">
+        <main class="flex-1 overflow-y-auto p-5 pb-24 scroll-smooth">
 
-            <!-- VIEW 1: METER READING -->
-            <div id="viewMeter" class="view-pane fade-in max-w-lg mx-auto space-y-4">
-                <div class="card-dark p-4">
-                    <div class="flex justify-between items-center mb-3">
-                        <h3 class="text-xs font-bold text-slate-400 flex items-center gap-2"><i class="fa-solid fa-gauge-high text-amber-500"></i> GENERATOR</h3>
-                        <span class="text-[9px] text-amber-500 bg-amber-900/10 px-1 rounded">LIVE</span>
+            <!-- VIEW 1: REPORT DASHBOARD -->
+            <div id="viewReport" class="view-pane fade-in space-y-4">
+                <div class="card-ui bg-gradient-to-r from-blue-600 to-indigo-600 text-white border-none">
+                    <h2 class="text-xl font-bold">Welcome Back 👋</h2>
+                    <p class="text-xs opacity-90">Overview of your utility stats.</p>
+                </div>
+
+                <div class="grid grid-cols-2 gap-4">
+                    <div class="card-ui flex items-center justify-between !mb-0">
+                        <div>
+                            <p class="text-[10px] font-bold text-slate-400 uppercase">Expense</p>
+                            <h3 class="text-lg font-bold text-red-500">₹<span id="dashExpense">0</span></h3>
+                        </div>
+                        <i class="fa-solid fa-arrow-trend-down text-red-200 text-xl"></i>
                     </div>
-                    <select id="dgModel" class="input-dark mb-3 text-xs font-bold bg-[#0b1121]">
-                        <option value="0">SELECT UNIT...</option>
+                    <div class="card-ui flex items-center justify-between !mb-0">
+                        <div>
+                            <p class="text-[10px] font-bold text-slate-400 uppercase">Income</p>
+                            <h3 class="text-lg font-bold text-emerald-500">₹<span id="dashIncome">0</span></h3>
+                        </div>
+                        <i class="fa-solid fa-arrow-trend-up text-emerald-200 text-xl"></i>
+                    </div>
+                </div>
+
+                <div class="card-ui p-0 overflow-hidden">
+                    <div class="p-3 border-b border-slate-100 flex justify-between">
+                        <h3 class="text-xs font-bold text-slate-500 uppercase">Recent Activity</h3>
+                        <button onclick="loadReportData()" class="text-xs text-indigo-600 font-bold"><i class="fa-solid fa-rotate"></i></button>
+                    </div>
+                    <div id="dashHistoryList" class="p-2 text-xs">Loading...</div>
+                </div>
+            </div>
+
+            <!-- VIEW 2: METER READING -->
+            <div id="viewMeter" class="view-pane hidden fade-in space-y-4">
+                <div class="card-ui">
+                    <h3 class="text-xs font-bold text-slate-400 uppercase mb-3 flex items-center gap-2">
+                        <i class="fa-solid fa-gauge-high text-orange-500"></i> Generator
+                    </h3>
+                    <select id="dgModel" class="input-ui font-bold mb-3">
+                        <option value="0">Select Unit...</option>
                         <option value="40">Kirloskar 7.5 kVA (40 L)</option>
                         <option value="50">Kirloskar 15 kVA (50 L)</option>
                         <option value="75">Kirloskar 30 kVA (75 L)</option>
@@ -185,226 +176,122 @@
                         <option value="350">Ashok Leyland 250 kVA (350 L)</option>
                         <option value="-1">Custom Tank</option>
                     </select>
-                    <input type="number" id="dgCustom" class="input-dark mb-3 hidden" placeholder="Capacity (L)">
-                    
+                    <input type="number" id="dgCustom" class="input-ui mb-3 hidden" placeholder="Capacity (L)">
                     <div class="grid grid-cols-2 gap-3">
-                        <input type="number" id="dgHeight" value="7.0" class="input-dark text-center font-mono font-bold" placeholder="HT">
-                        <input type="number" id="dgReading" placeholder="RD" class="input-dark text-center font-mono text-amber-500 font-bold border-amber-500/30">
+                        <input type="number" id="dgHeight" value="7.0" class="input-ui text-center font-bold" placeholder="Height">
+                        <input type="number" id="dgReading" placeholder="Reading" class="input-ui text-center font-bold text-indigo-600">
                     </div>
                 </div>
 
-                <!-- Digital Display -->
-                <div class="card-dark p-4 relative border-amber-500/20 overflow-hidden">
-                    <div class="absolute inset-0 bg-gradient-to-r from-slate-900 to-[#0b1121] opacity-90"></div>
-                    <div class="relative z-10 flex justify-between items-end mb-2">
+                <div class="card-ui bg-slate-900 text-white border-none relative overflow-hidden">
+                    <div class="flex justify-between items-end mb-4 relative z-10">
                         <div>
-                            <p class="text-[9px] text-slate-500 font-mono tracking-widest">LEVEL</p>
-                            <p id="resPercent" class="text-4xl font-mono font-bold text-amber-500 leading-none">0%</p>
+                            <p class="text-[10px] text-slate-400 font-bold uppercase tracking-widest">FUEL LEVEL</p>
+                            <p id="resPercent" class="text-4xl font-bold text-orange-400">0%</p>
                         </div>
                         <div class="text-right">
-                            <p class="text-[9px] text-slate-500 font-mono tracking-widest">QTY</p>
-                            <p id="resQty" class="text-xl font-mono font-bold text-white">0.0 L</p>
+                            <p class="text-[10px] text-slate-400 font-bold uppercase tracking-widest">VOLUME</p>
+                            <p id="resQty" class="text-2xl font-bold">0.0 L</p>
                         </div>
                     </div>
-                    <div class="w-full h-1 bg-slate-800 rounded-full overflow-hidden relative z-10">
-                        <div id="progressBar" class="h-full bg-amber-500 w-0 transition-all duration-700 shadow-[0_0_15px_#f59e0b]"></div>
+                    <div class="w-full h-2 bg-slate-700 rounded-full mb-4 relative z-10">
+                        <div id="progressBar" class="h-full bg-orange-500 w-0 transition-all duration-700 rounded-full"></div>
                     </div>
-                    <button onclick="saveMeter()" id="saveMeterBtn" class="mt-4 w-full bg-slate-800 hover:bg-slate-700 text-white py-3 text-[10px] font-bold uppercase tracking-widest transition border-t border-slate-700 hover:text-amber-500">
-                        LOG READING
-                    </button>
+                    <button onclick="saveMeter()" id="saveMeterBtn" class="w-full bg-white text-slate-900 py-3 rounded-lg text-xs font-bold uppercase relative z-10">LOG READING</button>
+                    <i class="fa-solid fa-gas-pump absolute -right-5 -bottom-5 text-9xl text-white opacity-5"></i>
                 </div>
 
-                <!-- HISTORY SECTION -->
-                <div class="card-dark p-4">
-                    <h3 class="text-[10px] font-bold text-slate-500 uppercase mb-3 tracking-wider">Recent Readings</h3>
+                <div>
+                    <h3 class="text-xs font-bold text-slate-400 uppercase mb-2 ml-1">Recent Readings</h3>
                     <div id="meterHistoryList" class="space-y-2">
-                        <div class="text-center text-[10px] text-slate-600">Loading History...</div>
+                         <p class="text-center text-xs text-slate-400 py-2">No history loaded.</p>
                     </div>
                 </div>
             </div>
 
-            <!-- VIEW 2: FUEL PRICE -->
-            <div id="viewFuel" class="view-pane hidden fade-in max-w-lg mx-auto space-y-3">
-                <div class="card-dark p-4">
-                    <div class="flex justify-between items-center mb-3">
+            <!-- VIEW 3: FUEL PRICE -->
+            <div id="viewFuel" class="view-pane hidden fade-in space-y-4">
+                <div class="card-ui">
+                    <div class="flex justify-between items-center mb-4">
                         <h3 class="text-xs font-bold text-slate-400 uppercase">Market Rates</h3>
-                        <button onclick="fetchFuelPrices()" class="text-[9px] bg-slate-800 border border-slate-700 px-2 py-1 rounded text-amber-500"><i class="fa-solid fa-rotate"></i></button>
+                        <button onclick="fetchFuelPrices()" class="text-[10px] bg-indigo-50 text-indigo-600 px-2 py-1 rounded font-bold"><i class="fa-solid fa-rotate"></i> Sync</button>
                     </div>
-                    <select id="fuelState" class="input-dark mb-3 text-xs font-bold" onchange="updateFuelDisplay()"><option>Select State...</option></select>
+                    <select id="fuelState" class="input-ui mb-4 text-sm font-bold" onchange="updateFuelDisplay()"><option>Select State...</option></select>
                     <div class="grid grid-cols-3 gap-2 text-center">
-                        <div class="p-2 bg-emerald-900/10 border border-emerald-500/20 rounded-lg">
-                            <p class="text-[9px] font-bold text-emerald-500">PETROL</p>
-                            <p id="pricePetrol" class="font-mono font-bold text-white text-sm">--</p>
+                        <div class="p-2 bg-emerald-50 rounded-lg border border-emerald-100">
+                            <p class="text-[9px] font-bold text-emerald-600">PETROL</p>
+                            <p id="pricePetrol" class="font-bold text-slate-800">--</p>
                         </div>
-                        <div class="p-2 bg-blue-900/10 border border-blue-500/20 rounded-lg">
-                            <p class="text-[9px] font-bold text-blue-500">DIESEL</p>
-                            <p id="priceDiesel" class="font-mono font-bold text-white text-sm">--</p>
+                        <div class="p-2 bg-blue-50 rounded-lg border border-blue-100">
+                            <p class="text-[9px] font-bold text-blue-600">DIESEL</p>
+                            <p id="priceDiesel" class="font-bold text-slate-800">--</p>
                         </div>
-                        <div class="p-2 bg-amber-900/10 border border-amber-500/20 rounded-lg">
-                            <p class="text-[9px] font-bold text-amber-500">CNG</p>
-                            <p id="priceCNG" class="font-mono font-bold text-white text-sm">--</p>
+                        <div class="p-2 bg-amber-50 rounded-lg border border-amber-100">
+                            <p class="text-[9px] font-bold text-amber-600">CNG</p>
+                            <p id="priceCNG" class="font-bold text-slate-800">--</p>
                         </div>
                     </div>
                 </div>
 
-                <div class="card-dark p-4">
-                    <h3 class="text-[10px] font-bold text-slate-500 uppercase mb-3">Calculator</h3>
+                <div class="card-ui">
+                    <h3 class="text-xs font-bold text-slate-400 uppercase mb-3">Calculator</h3>
                     <div class="flex gap-2 mb-3">
-                        <button onclick="setCalcMode('cost')" id="btnCost" class="flex-1 py-2 text-[10px] font-bold rounded bg-slate-700 text-white">QTY → COST</button>
-                        <button onclick="setCalcMode('qty')" id="btnQty" class="flex-1 py-2 text-[10px] font-bold rounded bg-slate-800 text-slate-500">COST → QTY</button>
+                        <button onclick="setCalcMode('cost')" id="btnCost" class="flex-1 py-2 text-[10px] font-bold rounded bg-slate-800 text-white">QTY → COST</button>
+                        <button onclick="setCalcMode('qty')" id="btnQty" class="flex-1 py-2 text-[10px] font-bold rounded bg-slate-100 text-slate-500">COST → QTY</button>
                     </div>
                     <div class="flex gap-2 items-center mb-3">
-                        <select id="calcFuelType" class="input-dark w-1/3 !py-2 text-[10px]"><option>Petrol</option><option>Diesel</option><option>CNG</option></select>
-                        <input type="number" id="calcInput" class="input-dark font-mono font-bold text-sm" placeholder="0.00" oninput="runFuelCalc()">
+                        <select id="calcFuelType" class="input-ui w-1/3 !py-2 text-[10px] font-bold"><option>Petrol</option><option>Diesel</option><option>CNG</option></select>
+                        <input type="number" id="calcInput" class="input-ui font-bold text-lg text-right" placeholder="0.00" oninput="runFuelCalc()">
                     </div>
-                    <div class="flex justify-between items-center bg-[#0b1121] p-3 rounded-lg border border-slate-700 mb-3">
-                        <span class="text-[10px] text-slate-400">ESTIMATED COST</span>
-                        <span id="calcResult" class="font-mono text-lg font-bold text-amber-500">0.00</span>
+                    <div class="flex justify-between items-center bg-slate-900 p-3 rounded-lg text-white mb-3">
+                        <span class="text-[10px] font-bold opacity-70">ESTIMATED</span>
+                        <span id="calcResult" class="font-mono text-xl font-bold text-yellow-400">0.00</span>
                     </div>
-
-                    <!-- Add Vehicle Select for Saving -->
-                    <div class="pt-2 border-t border-slate-700">
-                        <select id="calcVehicle" class="input-dark text-[10px] mb-2"><option value="">Select Vehicle to Save...</option></select>
-                        <button onclick="saveFuelCalc()" class="w-full bg-blue-600 hover:bg-blue-500 text-white py-2 rounded text-[10px] font-bold">SAVE AS RECORD</button>
+                    <div class="pt-3 border-t border-slate-100 flex gap-2">
+                         <select id="calcVehicle" class="input-ui text-xs py-2"><option value="">Select Vehicle...</option></select>
+                         <button onclick="saveFuelCalc()" class="bg-indigo-600 text-white px-4 py-2 rounded-lg text-[10px] font-bold w-1/3">SAVE</button>
                     </div>
                 </div>
 
-                 <!-- FUEL HISTORY -->
-                 <div class="card-dark p-4">
-                    <h3 class="text-[10px] font-bold text-slate-500 uppercase mb-3 tracking-wider">Recent Calculations</h3>
-                    <div id="fuelHistoryList" class="space-y-2">
-                        <div class="text-center text-[10px] text-slate-600">Loading History...</div>
-                    </div>
+                <div>
+                     <h3 class="text-xs font-bold text-slate-400 uppercase mb-2 ml-1">Recent Records</h3>
+                     <div id="fuelHistoryList" class="space-y-2">
+                         <p class="text-center text-xs text-slate-400 py-2">No history.</p>
+                     </div>
                 </div>
             </div>
 
-            <!-- VIEW 3: VEHICLE MANAGEMENT -->
-            <div id="viewVehicle" class="view-pane hidden fade-in max-w-lg mx-auto space-y-4">
-                
-                <!-- Vehicle Sub-Navigation -->
-                <div class="flex border-b border-border-color mb-2">
-                    <div onclick="switchVehicleSub('Ops')" class="sub-tab active flex-1" id="vSubOps">OPS</div>
-                    <div onclick="switchVehicleSub('List')" class="sub-tab flex-1" id="vSubList">FLEET</div>
-                    <div onclick="switchVehicleSub('Logs')" class="sub-tab flex-1" id="vSubLogs">LOGS</div>
-                </div>
-
-                <!-- OPERATIONS GRID -->
-                <div id="vOps" class="space-y-3">
-                    <div class="grid grid-cols-3 gap-3">
-                        <button onclick="openModal('refuel')" class="action-btn group hover:border-green-500/50">
-                            <i class="fa-solid fa-gas-pump text-xl text-green-500 mb-1"></i>
-                            <span class="text-[10px] font-bold text-slate-400">Refuel</span>
-                        </button>
-                        <button onclick="openModal('route')" class="action-btn group hover:border-orange-500/50">
-                            <i class="fa-solid fa-route text-xl text-orange-500 mb-1"></i>
-                            <span class="text-[10px] font-bold text-slate-400">Route</span>
-                        </button>
-                        <button onclick="openModal('service')" class="action-btn group hover:border-blue-500/50">
-                            <i class="fa-solid fa-wrench text-xl text-blue-500 mb-1"></i>
-                            <span class="text-[10px] font-bold text-slate-400">Service</span>
-                        </button>
-                        <button onclick="openModal('expense')" class="action-btn group hover:border-red-500/50">
-                            <i class="fa-solid fa-file-invoice-dollar text-xl text-red-500 mb-1"></i>
-                            <span class="text-[10px] font-bold text-slate-400">Expense</span>
-                        </button>
-                        <button onclick="openModal('income')" class="action-btn group hover:border-teal-500/50">
-                            <i class="fa-solid fa-sack-dollar text-xl text-teal-500 mb-1"></i>
-                            <span class="text-[10px] font-bold text-slate-400">Income</span>
-                        </button>
-                        <button onclick="openModal('register')" class="action-btn group hover:border-indigo-500/50">
-                            <i class="fa-solid fa-car text-xl text-indigo-500 mb-1"></i>
-                            <span class="text-[10px] font-bold text-slate-400">Add Car</span>
-                        </button>
-                    </div>
-                </div>
-
-                <!-- FLEET LIST -->
-                <div id="vList" class="hidden space-y-2">
-                    <div id="fleetListContainer" class="text-center text-[10px] text-muted py-4">Syncing...</div>
-                </div>
-
-                <!-- LOGS -->
-                <div id="vLogs" class="hidden space-y-2">
-                    <div id="vehicleLogContainer" class="text-center text-[10px] text-muted py-4">Loading...</div>
-                </div>
-            </div>
-
-            <!-- VIEW 4: TOOLS (Search) -->
-            <div id="viewTools" class="view-pane hidden fade-in max-w-lg mx-auto space-y-4">
-                <div class="card-dark p-4">
-                    <h3 class="text-xs font-bold text-slate-400 mb-3 flex items-center gap-2">
-                        <i class="fa-solid fa-magnifying-glass text-amber-500"></i> SEARCH
-                    </h3>
-                    <div class="relative mb-3">
-                        <input type="text" id="rtoSearchInput" placeholder="Vehicle No..." class="input-dark pl-9 uppercase font-mono tracking-wider">
-                        <i class="fa-solid fa-car absolute left-3 top-3.5 text-slate-500 text-xs"></i>
-                        <button onclick="searchVehicle()" class="absolute right-1.5 top-1.5 bg-slate-700 text-white px-3 py-1.5 rounded-md text-[9px] font-bold hover:bg-amber-600 transition">GO</button>
-                    </div>
-                    
-                    <div id="rtoResult" class="hidden bg-slate-900 p-3 rounded-lg border border-slate-700 text-xs space-y-2">
-                         <div class="flex justify-between items-center"><span class="text-slate-500 font-bold">PLATE</span> <span id="rtoPlate" class="rto-plate text-amber-500 font-bold">--</span></div>
-                         <div class="flex justify-between items-center"><span class="text-slate-500">OWNER</span> <span id="rtoOwner" class="text-white">--</span></div>
-                         <div class="flex justify-between items-center"><span class="text-slate-500">MODEL</span> <span id="rtoModel" class="text-slate-300">--</span></div>
-                    </div>
-                    <!-- External Mock -->
-                    <div id="rtoExternal" class="hidden bg-blue-900/10 p-3 rounded-lg border border-blue-800/50 text-xs space-y-2 mt-2 text-center">
-                         <p class="text-blue-300">Not in Fleet. Searching RTO...</p>
-                         <div class="flex justify-between"><span class="text-slate-500">STATUS</span> <span class="font-bold text-white">ACTIVE</span></div>
-                         <button onclick="openModal('register')" class="w-full mt-1 bg-blue-600 py-1.5 rounded text-[10px] font-bold text-white">ADD TO FLEET</button>
-                    </div>
-                </div>
-            </div>
-
-            <!-- VIEW 5: ADMIN -->
-            <div id="viewAdmin" class="view-pane hidden fade-in max-w-lg mx-auto">
-                <div class="card-dark p-4">
-                    <h3 class="font-bold text-slate-400 mb-3 text-xs border-b border-slate-700 pb-2">ADMIN PANEL</h3>
-                    
-                    <div class="bg-slate-900/50 p-3 rounded-lg border border-slate-700 mb-4">
-                        <p class="text-[10px] text-slate-500 font-bold mb-2 uppercase">Create User</p>
-                        <div class="space-y-2">
-                            <input id="uName" placeholder="Full Name" class="input-dark">
-                            <input id="uEmail" placeholder="Email" class="input-dark">
-                            <div class="flex gap-2">
-                                <input id="uPass" placeholder="Pass" class="input-dark">
-                                <select id="uRole" class="input-dark w-1/3"><option>User</option><option>Admin</option></select>
-                            </div>
-                            <button onclick="submitAdminUser()" class="w-full bg-blue-600 text-white py-2 rounded text-[10px] font-bold">CREATE</button>
+            <!-- VIEW 4: ADMIN -->
+            <div id="viewAdmin" class="view-pane hidden fade-in">
+                <div class="card-ui">
+                    <h3 class="text-xs font-bold text-slate-400 uppercase mb-4 border-b border-slate-100 pb-2">Admin Console</h3>
+                    <div class="space-y-3">
+                        <div class="bg-slate-50 p-3 rounded-lg border border-slate-200">
+                             <p class="text-[10px] font-bold text-slate-500 mb-2">ADD USER</p>
+                             <input id="uName" placeholder="Name" class="input-ui mb-2 text-xs">
+                             <input id="uEmail" placeholder="Email" class="input-ui mb-2 text-xs">
+                             <div class="flex gap-2 mb-2">
+                                 <input id="uPass" placeholder="Pass" class="input-ui text-xs">
+                                 <select id="uRole" class="input-ui text-xs"><option>User</option><option>Admin</option></select>
+                             </div>
+                             <button onclick="submitAdminUser()" class="w-full bg-blue-600 text-white py-2 rounded text-[10px] font-bold">CREATE</button>
                         </div>
+                        <a href="https://docs.google.com/spreadsheets" target="_blank" class="block text-center p-3 bg-green-50 text-green-700 rounded-lg text-xs font-bold border border-green-100">OPEN GOOGLE DATABASE</a>
+                        <div id="adminUserList" class="text-[10px] h-32 overflow-y-auto">Loading...</div>
                     </div>
-
-                    <a href="https://docs.google.com/spreadsheets" target="_blank" class="block w-full text-center p-2 bg-green-900/20 text-green-400 border border-green-800/50 rounded-lg text-[10px] font-bold mb-3">
-                        OPEN DATABASE
-                    </a>
-                    
-                    <div class="text-[10px] text-slate-500 font-bold mb-1">USER LIST</div>
-                    <div id="adminUserList" class="text-[10px] space-y-1 text-slate-400 font-mono h-32 overflow-y-auto">Loading...</div>
                 </div>
             </div>
 
         </main>
 
-        <!-- BOTTOM NAV -->
-        <nav class="bottom-nav fixed bottom-0 left-0 w-full z-40">
-            <div onclick="switchView('Meter')" class="nav-item active meter-active"><i class="fa-solid fa-gauge-high"></i></div>
-            <div onclick="switchView('Fuel')" class="nav-item fuel-active"><i class="fa-solid fa-gas-pump"></i></div>
-            <div onclick="switchView('Vehicle')" class="nav-item vehicle-active"><i class="fa-solid fa-car"></i></div>
-            <div onclick="switchView('Tools')" class="nav-item tools-active"><i class="fa-solid fa-screwdriver-wrench"></i></div>
-            <div id="adminMobile" onclick="switchView('Admin')" class="nav-item admin-active hidden"><i class="fa-solid fa-lock"></i></div>
+        <!-- BOTTOM NAV (BIG ICONS) -->
+        <nav class="bottom-nav">
+            <div onclick="switchView('Report')" class="nav-item active"><i class="fa-solid fa-chart-pie"></i></div>
+            <div onclick="switchView('Meter')" class="nav-item"><i class="fa-solid fa-gauge-high"></i></div>
+            <div onclick="switchView('Fuel')" class="nav-item"><i class="fa-solid fa-gas-pump"></i></div>
+            <div id="adminMobile" onclick="switchView('Admin')" class="nav-item hidden text-red-500"><i class="fa-solid fa-lock"></i></div>
         </nav>
 
-    </div>
-
-    <!-- MODAL -->
-    <div id="dataModal" class="fixed inset-0 z-50 hidden bg-black/90 backdrop-blur-sm flex items-end md:items-center justify-center p-0 md:p-4">
-        <div class="card-dark w-full md:w-[450px] rounded-t-3xl md:rounded-2xl p-5 shadow-2xl max-h-[85vh] overflow-y-auto border-t border-amber-500/50 bg-[#1e293b]">
-            <h3 id="modalTitle" class="text-sm font-bold text-white mb-4 font-tech uppercase tracking-wide border-b border-slate-700 pb-2">ENTRY</h3>
-            <div id="modalContent" class="space-y-3"></div>
-            <div class="flex gap-2 mt-5">
-                <button onclick="closeModal()" class="flex-1 py-3 bg-slate-800 rounded-lg font-bold text-slate-400 text-xs">CANCEL</button>
-                <button onclick="submitData()" id="saveBtn" class="flex-1 py-3 btn-primary rounded-lg font-bold text-xs">SUBMIT</button>
-            </div>
-        </div>
     </div>
 
     <script>
@@ -412,9 +299,8 @@
         let currentUser = null;
         let fuelData = [];
         let fleetData = [];
-        let currentModalMode = '';
 
-        // --- FIXED DATA ---
+        // --- FIXED 36 STATES DATA ---
         const HARDCODED_FUEL_PRICES = {
             "Andhra Pradesh (State)": { "Petrol": 109.57, "Diesel": 97.39, "CNG": 88.17 },
             "Arunachal Pradesh (State)": { "Petrol": 92.34, "Diesel": 81.86, "CNG": 0 },
@@ -443,16 +329,17 @@
             "Tripura (State)": { "Petrol": 97.25, "Diesel": 86.31, "CNG": 0 },
             "Uttar Pradesh (State)": { "Petrol": 95.12, "Diesel": 88.25, "CNG": 90.73 },
             "Uttarakhand (State)": { "Petrol": 93.81, "Diesel": 88.70, "CNG": 98.75 },
-            "West Bengal (State)": { "Petrol": 105.84, "Diesel": 92.41, "CNG": 0 },
+            "West Bengal (State)": { "Petrol": 105.84, "Diesel": 92.41, "CNG": 0 }, 
             "Andaman and Nicobar Islands (UT)": { "Petrol": 82.46, "Diesel": 78.05, "CNG": 0 },
             "Chandigarh (UT)": { "Petrol": 94.30, "Diesel": 82.45, "CNG": 92.00 },
             "Dadra and Nagar Haveli and Daman and Diu (UT)": { "Petrol": 92.74, "Diesel": 88.23, "CNG": 77.77 },
             "Delhi (National Capital Territory - UT)": { "Petrol": 94.77, "Diesel": 87.67, "CNG": 77.09 },
             "Jammu and Kashmir (UT)": { "Petrol": 98.87, "Diesel": 85.46, "CNG": 94.40 },
             "Ladakh (UT)": { "Petrol": 104.09, "Diesel": 91.68, "CNG": 0 },
-            "Lakshadweep (UT)": { "Petrol": 100.75, "Diesel": 0, "CNG": 0 },
+            "Lakshadweep (UT)": { "Petrol": 100.75, "Diesel": 0, "CNG": 0 }, 
             "Puducherry (UT)": { "Petrol": 95.78, "Diesel": 85.86, "CNG": 78.00 }
         };
+
         const dgCapacities = { "40":40, "50":50, "75":75, "80":80, "100":100, "150":150, "160":160, "180":180, "200":200, "250":250, "350":350 };
 
         // AUTH
@@ -464,13 +351,13 @@
             const e = document.getElementById('logEmail').value;
             const p = document.getElementById('logPass').value;
             if(!e || !p) return alert('Enter credentials');
-            document.getElementById('loginBtn').innerText = 'Authenticating...';
+            document.getElementById('loginBtn').innerText = 'Verifying...';
             try {
                 const res = await apiCall({ action:'login', email:e, password:p });
                 if(res.status === 'success') { currentUser = res.user; initApp(); } 
                 else alert(res.message);
             } catch(e) { alert('Connection Error'); }
-            document.getElementById('loginBtn').innerText = 'ACCESS SYSTEM';
+            document.getElementById('loginBtn').innerText = 'LOGIN DASHBOARD';
         }
         async function handleSignup() {
             const n = document.getElementById('signName').value, e = document.getElementById('signEmail').value, p = document.getElementById('signPass').value;
@@ -488,6 +375,9 @@
             }
             populateFuelDropdown();
             loadFleetData();
+            loadReportData();
+            
+            // Initial Histories
             fetchLastMeter();
             loadMeterHistory();
             loadFuelHistory();
@@ -497,24 +387,38 @@
             document.querySelectorAll('.view-pane').forEach(el => el.classList.add('hidden'));
             document.getElementById('view'+view).classList.remove('hidden');
             document.querySelectorAll('.nav-item').forEach(el => el.classList.remove('active'));
-            // Visual Active Logic
-            const icons = ["Meter", "Fuel", "Vehicle", "Tools", "Admin"];
-            const idx = icons.indexOf(view);
-            if(idx !== -1) document.querySelectorAll('.nav-item')[idx].classList.add('active');
-        }
-        
-        function switchVehicleSub(sub) {
-            document.getElementById('vOps').classList.add('hidden');
-            document.getElementById('vList').classList.add('hidden');
-            document.getElementById('vLogs').classList.add('hidden');
-            document.querySelectorAll('.sub-tab').forEach(el => el.classList.remove('active'));
-            document.getElementById('v'+sub).classList.remove('hidden');
-            document.getElementById('vSub'+sub).classList.add('active');
-            if(sub === 'List') renderFleetList();
-            if(sub === 'Logs') loadActivityLog(); 
+            // Logic to highlight nav
+            const map = { 'Report':0, 'Meter':1, 'Fuel':2, 'Admin':3 };
+            if(map[view] !== undefined) document.querySelectorAll('.nav-item')[map[view]].classList.add('active');
         }
 
-        // METER
+        // --- DASHBOARD REPORT ---
+        async function loadReportData() {
+            const [refuels, incomes, expenses] = await Promise.all([
+                apiCall({action:'fetch', sheet:'refuel'}),
+                apiCall({action:'fetch', sheet:'income'}),
+                apiCall({action:'fetch', sheet:'expense'})
+            ]);
+
+            let totalExp = 0, totalInc = 0, history = [];
+            
+            if(refuels.data) refuels.data.forEach(r => { totalExp += parseFloat(r.Cost||0); history.push({t:'Refuel', v:r.Cost, d:r.Date}); });
+            if(expenses.data) expenses.data.forEach(r => { totalExp += parseFloat(r.Notes||0); history.push({t:'Expense', v:r.Notes, d:r.Date}); });
+            if(incomes.data) incomes.data.forEach(r => { totalInc += parseFloat(r.Amount||0); history.push({t:'Income', v:r.Amount, d:r.Date, isInc:true}); });
+
+            document.getElementById('dashExpense').innerText = totalExp.toFixed(0);
+            document.getElementById('dashIncome').innerText = totalInc.toFixed(0);
+
+            history.sort((a,b) => new Date(b.d) - new Date(a.d));
+            document.getElementById('dashHistoryList').innerHTML = history.slice(0,5).map(h => 
+                `<div class="flex justify-between items-center p-3 border-b border-slate-100 last:border-0">
+                    <div><p class="text-xs font-bold text-slate-700">${h.t}</p><p class="text-[10px] text-slate-400">${h.d.substring(0,10)}</p></div>
+                    <span class="text-sm font-bold ${h.isInc?'text-emerald-500':'text-red-500'}">${h.isInc?'+':'-'}₹${h.v}</span>
+                </div>`
+            ).join('');
+        }
+
+        // --- METER LOGIC ---
         ['dgModel','dgCustom','dgHeight','dgReading'].forEach(id=>document.getElementById(id).addEventListener('input', calcMeter));
         async function fetchLastMeter() {
             const res = await apiCall({ action:'fetch', sheet:'meter' });
@@ -532,21 +436,21 @@
         }
         async function saveMeter() {
             const p = { action:'meter_reading', data:[new Date(), document.getElementById('dgModel').value, 0, document.getElementById('dgHeight').value, document.getElementById('dgReading').value, document.getElementById('resQty').innerText, document.getElementById('resPercent').innerText] };
-            if(await apiCall(p)) { alert('Logged'); loadMeterHistory(); }
+            if(await apiCall(p)) { alert('Saved!'); loadMeterHistory(); }
         }
         async function loadMeterHistory() {
             const res = await apiCall({ action:'fetch', sheet:'meter' });
             if(res.status === 'success') {
                 document.getElementById('meterHistoryList').innerHTML = res.data.slice(0,5).map(r => 
                     `<div class="history-item">
-                        <div><span class="text-[10px] text-slate-400 block">${r.Date.substring(0,10)}</span><span class="text-xs font-bold text-white">${r['DG Model']}</span></div>
-                        <div class="text-right"><span class="text-xs font-mono font-bold text-amber-500">${r.Percentage}</span><br><span class="text-[9px] text-slate-500">${r.Quantity}</span></div>
+                        <div><span class="text-[10px] text-slate-400 block">${r.Date.substring(0,10)}</span><span class="text-xs font-bold text-slate-700">${r['DG Model']}</span></div>
+                        <div class="text-right"><span class="text-xs font-mono font-bold text-indigo-500">${r.Percentage}</span><br><span class="text-[9px] text-slate-500">${r.Quantity}</span></div>
                     </div>`
                 ).join('');
             }
         }
 
-        // FUEL
+        // --- FUEL LOGIC ---
         function populateFuelDropdown() {
             const s = document.getElementById('fuelState');
             s.innerHTML='<option>Select...</option>';
@@ -572,143 +476,49 @@
         
         async function saveFuelCalc() {
             const v = document.getElementById('calcVehicle').value;
-            if(!v) return alert('Please select a vehicle to save this record');
+            if(!v) return alert('Select Vehicle');
             const type = document.getElementById('calcFuelType').value;
             const val = parseFloat(document.getElementById('calcInput').value)||0;
             const price = parseFloat(document.getElementById('price'+type).innerText.replace('₹',''))||0;
             
-            // Mapping calculation to Refueling schema
             let cost=0, qty=0;
-            if(calcMode === 'cost') { cost = val*price; qty = val; }
-            else { qty = val/price; cost = val; }
-
-            const data = [new Date(), v, 0, type, price, qty.toFixed(2), cost.toFixed(2), 'Calculator', 'Self'];
-            if(await apiCall({ action:'refuel', data:data })) { alert('Saved!'); loadFuelHistory(); }
+            if(calcMode === 'cost') { cost = val*price; qty = val; } else { qty = val/price; cost = val; }
+            const data = [new Date(), v, 0, type, price, qty.toFixed(2), cost.toFixed(2), 'Calc', 'Self'];
+            if(await apiCall({ action:'refuel', data:data })) { alert('Saved!'); loadFuelHistory(); loadReportData(); }
         }
 
         async function loadFuelHistory() {
-            // Reusing refueling log
             const res = await apiCall({ action:'fetch', sheet:'refuel' });
             if(res.status === 'success') {
                 document.getElementById('fuelHistoryList').innerHTML = res.data.slice(0,5).map(r => 
-                    `<div class="history-item highlight">
-                        <div><span class="text-[10px] text-slate-400 block">${r.Date.substring(0,10)}</span><span class="text-xs font-bold text-white">${r.Plate}</span></div>
-                        <div class="text-right"><span class="text-xs font-mono font-bold text-green-500">₹${r.Cost}</span></div>
+                    `<div class="history-item" style="border-left-color: #22c55e;">
+                        <div><span class="text-[10px] text-slate-400 block">${r.Date.substring(0,10)}</span><span class="text-xs font-bold text-slate-700">${r.Plate}</span></div>
+                        <div class="text-right"><span class="text-xs font-mono font-bold text-green-600">₹${r.Cost}</span></div>
                     </div>`
                 ).join('');
             }
         }
 
-
-        // SEARCH
-        function searchVehicle() {
-            const q = document.getElementById('rtoSearchInput').value.toUpperCase().trim();
-            const res = document.getElementById('rtoResult');
-            const ext = document.getElementById('rtoExternal');
-            
-            const v = fleetData.find(x => x.Plate === q || x['Vehicle Name'].toUpperCase() === q);
-            if(v) {
-                document.getElementById('rtoPlate').innerText = v.Plate;
-                document.getElementById('rtoOwner').innerText = currentUser.name;
-                document.getElementById('rtoModel').innerText = v.Model;
-                res.classList.remove('hidden'); ext.classList.add('hidden');
-            } else {
-                res.classList.add('hidden'); ext.classList.remove('hidden');
-            }
-        }
-
-        // VEHICLE DATA & MODALS
+        // --- ADMIN & OTHERS ---
         async function loadFleetData() {
             const res = await apiCall({ action:'fetch', sheet:'register' });
             if(res.status === 'success') {
-                fleetData = res.data;
                 const fSel = document.getElementById('calcVehicle');
-                fSel.innerHTML = '<option value="">Select Vehicle to Save...</option>';
-                fleetData.forEach(v => fSel.innerHTML += `<option value="${v.Plate}">${v.Plate}</option>`);
+                fSel.innerHTML = '<option value="">Select Vehicle...</option>';
+                res.data.forEach(v => fSel.innerHTML += `<option value="${v.Plate}">${v.Plate}</option>`);
             }
         }
-        
-        function renderFleetList() {
-            const div = document.getElementById('fleetListContainer');
-            if(fleetData.length === 0) { div.innerHTML = "<p class='text-slate-500 text-xs'>No vehicles found.</p>"; return; }
-            let html = '';
-            fleetData.forEach(v => {
-                html += `<div class="card-dark p-3 mb-2 flex justify-between items-center hover:bg-slate-800 transition">
-                    <div>
-                        <div class="font-bold text-white text-sm">${v.Plate}</div>
-                        <div class="text-[10px] text-slate-400 uppercase tracking-wider">${v['Vehicle Name']} | ${v.Model}</div>
-                    </div>
-                    <div class="text-[9px] bg-slate-900 border border-slate-700 px-2 py-1 rounded text-amber-500 font-mono">${v.Fuel}</div>
-                </div>`;
-            });
-            div.innerHTML = html;
-        }
-
-        function openModal(mode) {
-            currentModalMode = mode;
-            document.getElementById('dataModal').classList.remove('hidden');
-            const c = document.getElementById('modalContent');
-            let h = '';
-            if(mode === 'create_user') {
-                h = `<input id="uName" placeholder="Name" class="input-dark"><input id="uEmail" placeholder="Email" class="input-dark"><input id="uPass" placeholder="Pass" class="input-dark"><select id="uRole" class="input-dark"><option>User</option><option>Admin</option></select>`;
-            } else {
-                if(mode !== 'register') {
-                    h += `<select id="inpPlate" class="input-dark mb-3"><option>Select Vehicle...</option>`;
-                    fleetData.forEach(v => h += `<option value="${v.Plate}">${v['Vehicle Name']} (${v.Plate})</option>`);
-                    h += `</select>`;
-                }
-                if(mode === 'register') h = `<input id="inpName" placeholder="Name" class="input-dark"><input id="inpPlate" placeholder="Plate" class="input-dark uppercase"><input id="inpModel" placeholder="Model" class="input-dark"><select id="inpFuel" class="input-dark"><option>Diesel</option><option>Petrol</option></select><input id="inpChassis" placeholder="Chassis No" class="input-dark">`;
-                else if (mode === 'refuel') h = `<input type="number" id="inpOdo" placeholder="Odometer" class="input-dark"><input type="number" id="inpPrice" placeholder="Price/L" class="input-dark"><input type="number" id="inpQty" placeholder="Quantity" class="input-dark"><input type="number" id="inpCost" placeholder="Cost" class="input-dark">`;
-                else if (mode === 'income') h = `<input type="number" id="inpAmount" placeholder="Amount" class="input-dark font-bold text-green-400"><input id="inpType" placeholder="Source" class="input-dark"><input id="inpNotes" placeholder="Notes" class="input-dark">`;
-                else if (mode === 'route') h = `<input id="inpOrigin" placeholder="Origin" class="input-dark"><input id="inpDest" placeholder="Dest" class="input-dark"><div class="grid grid-cols-2 gap-2"><input type="number" id="inpStartKM" placeholder="Start KM" class="input-dark"><input type="number" id="inpEndKM" placeholder="End KM" class="input-dark"></div>`;
-                else if (mode === 'service' || mode === 'expense') h = `<input type="number" id="inpOdo" placeholder="Odo" class="input-dark"><input id="inpType" placeholder="Type" class="input-dark"><input id="inpNotes" placeholder="Cost/Notes" class="input-dark">`;
-                
-                h += `<input type="date" id="inpDate" class="input-dark mt-3" value="${new Date().toISOString().split('T')[0]}">`;
-            }
-            c.innerHTML = h;
-        }
-        function closeModal() { document.getElementById('dataModal').classList.add('hidden'); }
-
         async function submitAdminUser() {
             const u = { action:'admin_create_user', name:document.getElementById('uName').value, email:document.getElementById('uEmail').value, password:document.getElementById('uPass').value, role:document.getElementById('uRole').value };
-            if(await apiCall(u)) { alert('Created'); loadUsers(); closeModal(); }
+            if(await apiCall(u)) { alert('Created'); loadUsers(); }
         }
-
-        async function submitData() {
-            document.getElementById('saveBtn').innerText = 'Saving...';
-            let data = [];
-            const dt = document.getElementById('inpDate') ? document.getElementById('inpDate').value : new Date();
-            const pl = document.getElementById('inpPlate') ? document.getElementById('inpPlate').value : '';
-
-            // Data Mapping
-            if(currentModalMode === 'register') data = [dt, document.getElementById('inpName').value, document.getElementById('inpPlate').value, document.getElementById('inpModel').value, '', document.getElementById('inpFuel').value, '', '', document.getElementById('inpChassis').value, ''];
-            else if(currentModalMode === 'refuel') data = [dt, pl, document.getElementById('inpOdo').value, '', document.getElementById('inpPrice').value, document.getElementById('inpQty').value, document.getElementById('inpCost').value, '', ''];
-            else if(currentModalMode === 'income') data = [dt, pl, 0, document.getElementById('inpAmount').value, document.getElementById('inpType').value, currentUser.name, document.getElementById('inpNotes').value];
-            else if(currentModalMode === 'route') data = [dt, pl, document.getElementById('inpOrigin').value, '', document.getElementById('inpStartKM').value, document.getElementById('inpDest').value, '', document.getElementById('inpEndKM').value, '', '', ''];
-            else data = [dt, pl, document.getElementById('inpOdo').value, document.getElementById('inpType').value, '', '', '', document.getElementById('inpNotes').value];
-
-            const p = { action: currentModalMode, data: data };
-            if(await apiCall(p)) { alert('Saved'); closeModal(); if(currentModalMode==='register') loadFleetData(); loadActivityLog(); }
-            document.getElementById('saveBtn').innerText = 'SUBMIT';
-        }
-
-        // LOGS & ADMIN
         async function loadUsers() {
             const res = await fetch(`${API_URL}?action=fetch_users`);
             const json = await res.json();
             if(json.status==='success') {
-                document.getElementById('adminUserList').innerHTML = json.data.map(u => `<div class="p-2 border-b border-border-color flex justify-between text-muted"><span>${u.name}</span><span class="text-[10px] bg-slate-800 px-2 rounded">${u.role}</span></div>`).join('');
+                document.getElementById('adminUserList').innerHTML = json.data.map(u => `<div class="p-2 border-b border-gray-100 flex justify-between text-slate-500 text-xs"><span>${u.name}</span><span class="text-[9px] bg-slate-100 px-2 py-1 rounded-full">${u.role}</span></div>`).join('');
             }
         }
-        async function loadActivityLog() {
-            const res = await fetch(`${API_URL}?action=fetch&sheet=refuel`);
-            const json = await res.json();
-            const div = document.getElementById('vehicleLogContainer');
-            if(json.data && json.data.length > 0) {
-                div.innerHTML = json.data.slice(0,10).map(r => `<div class="card-dark p-2 mb-2 flex justify-between text-xs text-muted"><span>${r.Plate}</span><span class="text-green-500">Refuel: ₹${r.Cost}</span></div>`).join('');
-            }
-        }
-
         async function apiCall(body) {
             try { const r = await fetch(API_URL, { method:'POST', body:JSON.stringify(body) }); return await r.json(); } catch(e){ return {status:'error', message:e}; }
         }
