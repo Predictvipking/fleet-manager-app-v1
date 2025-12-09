@@ -10,9 +10,9 @@
     <style>
         /* --- THEME --- */
         :root {
-            --bg-dark: #0b1121; /* Deep Midnight */
-            --bg-card: #151e32; /* Lighter Card */
-            --primary: #f59e0b; /* Amber */
+            --bg-dark: #0b1121;
+            --bg-card: #151e32;
+            --primary: #f59e0b;
             --text-main: #e2e8f0;
             --text-muted: #64748b;
             --border-color: #1e293b;
@@ -28,7 +28,7 @@
             background-size: cover; background-position: center;
         }
 
-        /* Compact UI Elements */
+        /* Elements */
         .card-dark {
             background: var(--bg-card); border: 1px solid var(--border-color);
             border-radius: 12px; box-shadow: 0 4px 15px rgba(0,0,0,0.4);
@@ -59,7 +59,7 @@
         .action-btn:active { transform: scale(0.95); background: #0f172a; }
         .action-btn i { font-size: 1.4rem; margin-bottom: 4px; }
 
-        /* --- BOTTOM NAV (ICON ONLY & BIG) --- */
+        /* Bottom Nav */
         .bottom-nav {
             background: rgba(15, 23, 42, 0.98); backdrop-filter: blur(12px);
             border-top: 1px solid #1e293b;
@@ -77,6 +77,7 @@
         .nav-item.active { background: rgba(255,255,255,0.05); }
         .nav-item.active i { transform: scale(1.1); }
         
+        /* Active Colors */
         .meter-active.active i { color: #f59e0b; text-shadow: 0 0 10px rgba(245, 158, 11, 0.6); }
         .fuel-active.active i { color: #3b82f6; text-shadow: 0 0 10px rgba(59, 130, 246, 0.6); }
         .vehicle-active.active i { color: #e2e8f0; text-shadow: 0 0 10px rgba(226, 232, 240, 0.6); }
@@ -90,14 +91,14 @@
         }
         .sub-tab.active { color: var(--primary); border-bottom-color: var(--primary); background: rgba(245, 158, 11, 0.05); }
 
-        /* History List Style */
+        /* History List Item */
         .history-item {
             display: flex; justify-content: space-between; align-items: center;
             background: #0f172a; padding: 10px; border-radius: 8px; margin-bottom: 8px;
-            border-left: 3px solid #334155;
+            border-left: 3px solid #334155; transition: 0.2s;
         }
-        .history-item.highlight { border-left-color: var(--primary); }
-
+        .history-item:hover { border-left-color: var(--primary); }
+        
         .fade-in { animation: fadeIn 0.4s ease-out forwards; }
         @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
         ::-webkit-scrollbar { width: 0px; }
@@ -135,10 +136,6 @@
                 <input type="password" id="signPass" class="input-dark" placeholder="SET PASSWORD">
                 <button onclick="handleSignup()" id="signupBtn" class="btn-primary bg-slate-700 border border-slate-600">SUBMIT REQUEST</button>
                 <p class="text-center text-slate-500 text-xs mt-4 cursor-pointer hover:text-white" onclick="toggleAuth('login')">← Back to Login</p>
-            </div>
-            
-            <div class="absolute bottom-4 left-0 w-full text-center text-[9px] text-slate-600 font-mono tracking-widest">
-                SECURE SERVER V2.2
             </div>
         </div>
     </div>
@@ -210,12 +207,14 @@
                         </div>
                     </div>
                     <div class="w-full h-1 bg-slate-800 rounded-full overflow-hidden relative z-10">
-                        <div id="progressBar" class="h-full bg-amber-500 w-0 transition-all duration-700"></div>
+                        <div id="progressBar" class="h-full bg-amber-500 w-0 transition-all duration-700 shadow-[0_0_15px_#f59e0b]"></div>
                     </div>
-                    <button onclick="saveMeter()" id="saveMeterBtn" class="mt-4 w-full bg-slate-800 hover:bg-slate-700 text-white py-3 text-[10px] font-bold uppercase tracking-widest transition relative z-10 rounded">LOG READING</button>
+                    <button onclick="saveMeter()" id="saveMeterBtn" class="mt-4 w-full bg-slate-800 hover:bg-slate-700 text-white py-3 text-[10px] font-bold uppercase tracking-widest transition border-t border-slate-700 hover:text-amber-500">
+                        LOG READING
+                    </button>
                 </div>
 
-                <!-- METER HISTORY -->
+                <!-- HISTORY SECTION -->
                 <div class="card-dark p-4">
                     <h3 class="text-[10px] font-bold text-slate-500 uppercase mb-3 tracking-wider">Recent Readings</h3>
                     <div id="meterHistoryList" class="space-y-2">
@@ -249,7 +248,7 @@
                 </div>
 
                 <div class="card-dark p-4">
-                    <h3 class="text-[10px] font-bold text-slate-500 uppercase mb-3">Calculator & Save</h3>
+                    <h3 class="text-[10px] font-bold text-slate-500 uppercase mb-3">Calculator</h3>
                     <div class="flex gap-2 mb-3">
                         <button onclick="setCalcMode('cost')" id="btnCost" class="flex-1 py-2 text-[10px] font-bold rounded bg-slate-700 text-white">QTY → COST</button>
                         <button onclick="setCalcMode('qty')" id="btnQty" class="flex-1 py-2 text-[10px] font-bold rounded bg-slate-800 text-slate-500">COST → QTY</button>
@@ -270,9 +269,9 @@
                     </div>
                 </div>
 
-                <!-- FUEL HISTORY -->
-                <div class="card-dark p-4">
-                    <h3 class="text-[10px] font-bold text-slate-500 uppercase mb-3 tracking-wider">Recent Calculations/Refuels</h3>
+                 <!-- FUEL HISTORY -->
+                 <div class="card-dark p-4">
+                    <h3 class="text-[10px] font-bold text-slate-500 uppercase mb-3 tracking-wider">Recent Calculations</h3>
                     <div id="fuelHistoryList" class="space-y-2">
                         <div class="text-center text-[10px] text-slate-600">Loading History...</div>
                     </div>
@@ -289,7 +288,7 @@
                     <div onclick="switchVehicleSub('Logs')" class="sub-tab flex-1" id="vSubLogs">LOGS</div>
                 </div>
 
-                <!-- OPERATIONS GRID (Compact) -->
+                <!-- OPERATIONS GRID -->
                 <div id="vOps" class="space-y-3">
                     <div class="grid grid-cols-3 gap-3">
                         <button onclick="openModal('refuel')" class="action-btn group hover:border-green-500/50">
@@ -343,9 +342,15 @@
                     </div>
                     
                     <div id="rtoResult" class="hidden bg-slate-900 p-3 rounded-lg border border-slate-700 text-xs space-y-2">
-                         <div class="flex justify-between items-center"><span class="text-slate-500 font-bold">PLATE</span> <span id="rtoPlate" class="text-amber-500 font-bold font-mono">--</span></div>
+                         <div class="flex justify-between items-center"><span class="text-slate-500 font-bold">PLATE</span> <span id="rtoPlate" class="rto-plate text-amber-500 font-bold">--</span></div>
                          <div class="flex justify-between items-center"><span class="text-slate-500">OWNER</span> <span id="rtoOwner" class="text-white">--</span></div>
                          <div class="flex justify-between items-center"><span class="text-slate-500">MODEL</span> <span id="rtoModel" class="text-slate-300">--</span></div>
+                    </div>
+                    <!-- External Mock -->
+                    <div id="rtoExternal" class="hidden bg-blue-900/10 p-3 rounded-lg border border-blue-800/50 text-xs space-y-2 mt-2 text-center">
+                         <p class="text-blue-300">Not in Fleet. Searching RTO...</p>
+                         <div class="flex justify-between"><span class="text-slate-500">STATUS</span> <span class="font-bold text-white">ACTIVE</span></div>
+                         <button onclick="openModal('register')" class="w-full mt-1 bg-blue-600 py-1.5 rounded text-[10px] font-bold text-white">ADD TO FLEET</button>
                     </div>
                 </div>
             </div>
@@ -379,7 +384,7 @@
 
         </main>
 
-        <!-- BOTTOM NAV (BIG ICONS ONLY) -->
+        <!-- BOTTOM NAV -->
         <nav class="bottom-nav fixed bottom-0 left-0 w-full z-40">
             <div onclick="switchView('Meter')" class="nav-item active meter-active"><i class="fa-solid fa-gauge-high"></i></div>
             <div onclick="switchView('Fuel')" class="nav-item fuel-active"><i class="fa-solid fa-gas-pump"></i></div>
@@ -393,7 +398,7 @@
     <!-- MODAL -->
     <div id="dataModal" class="fixed inset-0 z-50 hidden bg-black/90 backdrop-blur-sm flex items-end md:items-center justify-center p-0 md:p-4">
         <div class="card-dark w-full md:w-[450px] rounded-t-3xl md:rounded-2xl p-5 shadow-2xl max-h-[85vh] overflow-y-auto border-t border-amber-500/50 bg-[#1e293b]">
-            <h3 id="modalTitle" class="text-lg font-bold text-white mb-4 font-tech uppercase tracking-wide border-b border-slate-700 pb-2">ENTRY</h3>
+            <h3 id="modalTitle" class="text-sm font-bold text-white mb-4 font-tech uppercase tracking-wide border-b border-slate-700 pb-2">ENTRY</h3>
             <div id="modalContent" class="space-y-3"></div>
             <div class="flex gap-2 mt-5">
                 <button onclick="closeModal()" class="flex-1 py-3 bg-slate-800 rounded-lg font-bold text-slate-400 text-xs">CANCEL</button>
@@ -405,10 +410,11 @@
     <script>
         const API_URL = 'https://script.google.com/macros/s/AKfycbwuZevWQeFNwy41e-z40ymvbsyo8bPigXr4z2270uTdpeRm7d2KH2LV7i41y1qi-N2k-g/exec';
         let currentUser = null;
+        let fuelData = [];
         let fleetData = [];
         let currentModalMode = '';
 
-        // --- FIXED 36 STATES DATA ---
+        // --- FIXED DATA ---
         const HARDCODED_FUEL_PRICES = {
             "Andhra Pradesh (State)": { "Petrol": 109.57, "Diesel": 97.39, "CNG": 88.17 },
             "Arunachal Pradesh (State)": { "Petrol": 92.34, "Diesel": 81.86, "CNG": 0 },
@@ -447,7 +453,6 @@
             "Lakshadweep (UT)": { "Petrol": 100.75, "Diesel": 0, "CNG": 0 },
             "Puducherry (UT)": { "Petrol": 95.78, "Diesel": 85.86, "CNG": 78.00 }
         };
-
         const dgCapacities = { "40":40, "50":50, "75":75, "80":80, "100":100, "150":150, "160":160, "180":180, "200":200, "250":250, "350":350 };
 
         // AUTH
@@ -509,9 +514,8 @@
             if(sub === 'Logs') loadActivityLog(); 
         }
 
-        // --- METER READING & HISTORY ---
+        // METER
         ['dgModel','dgCustom','dgHeight','dgReading'].forEach(id=>document.getElementById(id).addEventListener('input', calcMeter));
-        
         async function fetchLastMeter() {
             const res = await apiCall({ action:'fetch', sheet:'meter' });
             if(res.status === 'success' && res.data.length > 0) document.getElementById('dgHeight').value = res.data[0].Height || 7.0;
@@ -542,7 +546,7 @@
             }
         }
 
-        // --- FUEL & HISTORY ---
+        // FUEL
         function populateFuelDropdown() {
             const s = document.getElementById('fuelState');
             s.innerHTML='<option>Select...</option>';
@@ -600,13 +604,17 @@
         function searchVehicle() {
             const q = document.getElementById('rtoSearchInput').value.toUpperCase().trim();
             const res = document.getElementById('rtoResult');
+            const ext = document.getElementById('rtoExternal');
+            
             const v = fleetData.find(x => x.Plate === q || x['Vehicle Name'].toUpperCase() === q);
             if(v) {
                 document.getElementById('rtoPlate').innerText = v.Plate;
                 document.getElementById('rtoOwner').innerText = currentUser.name;
                 document.getElementById('rtoModel').innerText = v.Model;
-                res.classList.remove('hidden');
-            } else { alert("Vehicle not found."); res.classList.add('hidden'); }
+                res.classList.remove('hidden'); ext.classList.add('hidden');
+            } else {
+                res.classList.add('hidden'); ext.classList.remove('hidden');
+            }
         }
 
         // VEHICLE DATA & MODALS
@@ -614,7 +622,6 @@
             const res = await apiCall({ action:'fetch', sheet:'register' });
             if(res.status === 'success') {
                 fleetData = res.data;
-                // Populate fuel vehicle select
                 const fSel = document.getElementById('calcVehicle');
                 fSel.innerHTML = '<option value="">Select Vehicle to Save...</option>';
                 fleetData.forEach(v => fSel.innerHTML += `<option value="${v.Plate}">${v.Plate}</option>`);
@@ -654,7 +661,7 @@
                 else if (mode === 'refuel') h = `<input type="number" id="inpOdo" placeholder="Odometer" class="input-dark"><input type="number" id="inpPrice" placeholder="Price/L" class="input-dark"><input type="number" id="inpQty" placeholder="Quantity" class="input-dark"><input type="number" id="inpCost" placeholder="Cost" class="input-dark">`;
                 else if (mode === 'income') h = `<input type="number" id="inpAmount" placeholder="Amount" class="input-dark font-bold text-green-400"><input id="inpType" placeholder="Source" class="input-dark"><input id="inpNotes" placeholder="Notes" class="input-dark">`;
                 else if (mode === 'route') h = `<input id="inpOrigin" placeholder="Origin" class="input-dark"><input id="inpDest" placeholder="Dest" class="input-dark"><div class="grid grid-cols-2 gap-2"><input type="number" id="inpStartKM" placeholder="Start KM" class="input-dark"><input type="number" id="inpEndKM" placeholder="End KM" class="input-dark"></div>`;
-                else if (mode === 'service' || mode === 'expense') h = `<input type="number" id="inpOdo" placeholder="Odometer" class="input-dark"><input id="inpType" placeholder="Type" class="input-dark"><input id="inpNotes" placeholder="Cost/Notes" class="input-dark">`;
+                else if (mode === 'service' || mode === 'expense') h = `<input type="number" id="inpOdo" placeholder="Odo" class="input-dark"><input id="inpType" placeholder="Type" class="input-dark"><input id="inpNotes" placeholder="Cost/Notes" class="input-dark">`;
                 
                 h += `<input type="date" id="inpDate" class="input-dark mt-3" value="${new Date().toISOString().split('T')[0]}">`;
             }
